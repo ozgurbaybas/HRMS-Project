@@ -1,5 +1,7 @@
 package com.ozgurbaybas.Services;
 
+import com.ozgurbaybas.Core.Utilities.Result.DataResult;
+import com.ozgurbaybas.Core.Utilities.Result.SuccessDataResult;
 import com.ozgurbaybas.Models.JobTitle;
 import com.ozgurbaybas.Repository.JobTitleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ public class JobTitleServiceImpl implements JobTitleService {
     }
 
     @Override
-    public List<JobTitle> getAll() {
-        return this.jobTitleRepository.findAll();
+    public DataResult<List<JobTitle>> getAll() {
+        return new SuccessDataResult<List<JobTitle>>(this.jobTitleRepository.findAll());
     }
 }

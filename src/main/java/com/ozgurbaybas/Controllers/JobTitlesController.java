@@ -1,5 +1,6 @@
 package com.ozgurbaybas.Controllers;
 
+import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Models.JobTitle;
 import com.ozgurbaybas.Services.JobTitleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class JobTitlesController {
     }
 
     @GetMapping("/getall")
-    public List<JobTitle> getAll() {
+    public DataResult<List<JobTitle>> getAll() {
         return this.jobTitleService.getAll();
     }
 }
