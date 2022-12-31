@@ -21,38 +21,37 @@ public class JobTitleServiceImpl implements JobTitleService {
 
     @Override
     public DataResult<List<JobTitle>> getAll() {
-        return new SuccessDataResult<List<JobTitle>>(this.jobTitleRepository.findAll());
+        return new SuccessDataResult<List<JobTitle>>(jobTitleRepository.findAll());
     }
 
     @Override
     public Result add(JobTitle jobTitle) {
 
-        if(!checkIfJobTitleExists(jobTitle.getTitle())) {
-            this.jobTitleRepository.save(jobTitle);
-            return new SuccessResult("Job position added.");
+        if(checkIfJobTitleExists(jobTitle.getTitle())) {
+            return new ErrorResult("The job position you want to add already exists.");
         }
-
-        return new ErrorResult("The job position you want to add already exists.");
+            jobTitleRepository.save(jobTitle);
+            return new SuccessResult("Job position added.");
     }
 
     @Override
     public Result update(JobTitle jobTitle) {
-        this.jobTitleRepository.save(jobTitle);
+        jobTitleRepository.save(jobTitle);
         return new SuccessResult("Job position updated.");
     }
 
     @Override
     public Result delete(JobTitle jobTitle) {
-        this.jobTitleRepository.delete(jobTitle);
+        jobTitleRepository.delete(jobTitle);
         return new SuccessResult("The job position has been deleted.");
     }
 
     @Override
     public DataResult<JobTitle> getById(Long id) {
-        return new SuccessDataResult<JobTitle>(this.jobTitleRepository.getById(id));
+        return new SuccessDataResult<JobTitle>(jobTitleRepository.getById(id));
     }
 
-    public boolean checkIfJobTitleExists(String title) {
+    private boolean checkIfJobTitleExists(String title) {
 
         boolean result = false;
 
