@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class UserCheckManager implements UserCheckService {
 
     @Override
-    public boolean checkIfRealPerson(String identityNumber, String firstName, String lastName, LocalDate dateOfBirth) {
+    public boolean checkIfRealPerson(String identityNumber, String firstName, String lastName, int yearOfBirth) {
         return true;
     }
 

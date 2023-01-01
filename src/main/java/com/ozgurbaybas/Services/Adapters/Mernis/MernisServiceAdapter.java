@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Service
 public class MernisServiceAdapter {
-    public boolean checkIfRealPerson(String identityNumber, String firstName, String lastName, LocalDate dateOfBirth) {
+    public boolean checkIfRealPerson(String identityNumber, String firstName, String lastName, int yearOfBirth) {
 
         KPSPublicSoapProxy kpsPublicSoapProxy = new KPSPublicSoapProxy();
 
@@ -19,7 +19,7 @@ public class MernisServiceAdapter {
                     Long.parseLong(identityNumber),
                     firstName.toUpperCase(),
                     lastName.toUpperCase(),
-                    dateOfBirth.getYear());
+                    yearOfBirth);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         } catch (RemoteException e) {
