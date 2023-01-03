@@ -1,0 +1,15 @@
+package com.ozgurbaybas.Services;
+
+import com.ozgurbaybas.Core.Utilities.Result.Result;
+import com.ozgurbaybas.Core.Utilities.Result.SuccessResult;
+import com.ozgurbaybas.Models.User;
+import org.springframework.stereotype.Service;
+
+@Service
+public class EmailServiceImpl implements EmailService {
+
+    @Override
+    public Result sendEmail(User user) {
+        return new SuccessResult();
+    }
+}
