@@ -37,6 +37,7 @@ public class EmployerServiceImpl implements EmployerService {
         }
 
         employer.setActivated(false);
+        employer.setConfirmed(false);
         employerRepository.save(employer);
         return userActivationService.add(new UserActivation(employer));
     }
