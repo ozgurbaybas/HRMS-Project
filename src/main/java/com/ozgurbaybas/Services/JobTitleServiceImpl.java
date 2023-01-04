@@ -27,7 +27,7 @@ public class JobTitleServiceImpl implements JobTitleService {
     @Override
     public Result add(JobTitle jobTitle) {
 
-        if(checkIfJobTitleExists(jobTitle.getTitle())) {
+        if(!checkIfJobTitleExists(jobTitle.getTitle())) {
             return new ErrorResult("The job position you want to add already exists.");
         }
             jobTitleRepository.save(jobTitle);
