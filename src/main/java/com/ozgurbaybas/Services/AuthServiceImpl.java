@@ -4,7 +4,6 @@ import com.ozgurbaybas.Core.Utilities.Result.ErrorResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Models.Candidate;
 import com.ozgurbaybas.Models.Employer;
-import com.ozgurbaybas.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +31,12 @@ public class AuthServiceImpl implements AuthService {
             return new ErrorResult("Please enter a valid e-mail address.");
         }
 
-        if (checkIfEmailExists(candidate.getEmail())) {
+        if (!checkIfEmailExists(candidate.getEmail())) {
             return new ErrorResult("The e-mail address entered belongs to another account.");
+        }
+
+        if (!checkIfPasswordIsNull(candidate.getPassword())) {
+            return new ErrorResult("Please fill in the blank fields.");
         }
 
         if (!checkIfPasswordsMatch(candidate.getPassword(), confirmPassword)) {
@@ -50,8 +53,12 @@ public class AuthServiceImpl implements AuthService {
             return new ErrorResult("Please enter a valid e-mail address.");
         }
 
-        if (checkIfEmailExists(employer.getEmail())) {
+        if (!checkIfEmailExists(employer.getEmail())) {
             return new ErrorResult("The e-mail address entered belongs to another account.");
+        }
+
+        if (!checkIfPasswordIsNull(employer.getPassword())) {
+            return new ErrorResult("Please fill in the blank fields.");
         }
 
         if (!checkIfPasswordsMatch(employer.getPassword(), confirmPassword)) {
@@ -73,12 +80,9 @@ public class AuthServiceImpl implements AuthService {
 
         boolean result = false;
 
-        for (User user : userService.getAll().getData()) {
-            if (user.getEmail() == email) {
-                result = true;
-            }
+        if (userService.getByEmail(email).getData() == null) {
+            result = true;
         }
-
         return result;
     }
 
@@ -89,7 +93,16 @@ public class AuthServiceImpl implements AuthService {
         if (password.equals(confirmPassword)) {
             result = true;
         }
+        return result;
+    }
 
+    private boolean checkIfPasswordIsNull(String password) {
+
+        boolean result = false;
+
+        if (password != null) {
+            result = true;
+        }
         return result;
     }
 

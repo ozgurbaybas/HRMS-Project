@@ -33,5 +33,4 @@ public class UserServiceImpl implements UserService {
     public DataResult<User> getByEmail(String email) {
         return new SuccessDataResult<User>(userRepository.getByEmail(email));
     }
-
 }

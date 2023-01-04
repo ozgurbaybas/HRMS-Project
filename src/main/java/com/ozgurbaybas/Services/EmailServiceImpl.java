@@ -10,6 +10,6 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public Result sendEmail(User user) {
-        return new SuccessResult();
+        return new SuccessResult(user.getEmail() + " An e-mail has been sent to.");
     }
 }

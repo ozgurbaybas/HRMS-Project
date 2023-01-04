@@ -29,22 +29,17 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public Result add(Candidate candidate) {
 
-        if (checkIfNullField(candidate)) {
-            return new ErrorResult("Please fill in the blank fields.");
-        }
-
         if (!userCheckService.checkIfRealPerson(candidate.getIdentityNumber(), candidate.getFirstName(),
                 candidate.getLastName(), candidate.getYearOfBirth())) {
             return new ErrorResult("Please enter your information correctly.");
         }
 
-        if (checkIfIdentityNumberExists(candidate.getIdentityNumber())) {
+        if (!checkIfIdentityNumberExists(candidate.getIdentityNumber())) {
             return new ErrorResult("The entered ID number belongs to another account.");
         }
 
         candidateRepository.save(candidate);
-        userActivationService.add(new UserActivation(candidate));
-        return new SuccessResult("Activation code sent.");
+        return userActivationService.add(new UserActivation(candidate));
     }
 
     @Override
@@ -70,6 +65,11 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
+    public DataResult<Candidate> getByIdentityNumber(String identityNumber) {
+        return new SuccessDataResult<Candidate>(candidateRepository.getByIdentityNumber(identityNumber));
+    }
+
+    @Override
     public Result activate(UserActivation userActivation) {
 
         userActivation.setActivated(true);
@@ -79,32 +79,12 @@ public class CandidateServiceImpl implements CandidateService {
         return new SuccessResult("Membership procedures have been completed.");
     }
 
-    @Override
-    public DataResult<Candidate> getByIdentityNumber(String identityNumber) {
-        return new SuccessDataResult<Candidate>(candidateRepository.getByIdentityNumber(identityNumber));
-    }
-
-    private boolean checkIfNullField(Candidate candidate) {
-
-        boolean result = false;
-
-        if (candidate.getEmail() == null || candidate.getPassword() == null || candidate.getFirstName() == null
-                || candidate.getLastName() == null || candidate.getIdentityNumber() == null
-                || candidate.getYearOfBirth() == 0) {
-            result = true;
-        }
-
-        return result;
-    }
-
     private boolean checkIfIdentityNumberExists(String identityNumber) {
 
         boolean result = false;
 
-        for (Candidate candidate : getAll().getData()) {
-            if (candidate.getIdentityNumber() == identityNumber) {
-                result = true;
-            }
+        if (getByIdentityNumber(identityNumber).getData() == null) {
+            result = true;
         }
 
         return result;

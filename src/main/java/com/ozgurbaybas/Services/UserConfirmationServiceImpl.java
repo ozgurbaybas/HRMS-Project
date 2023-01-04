@@ -26,20 +26,12 @@ public class UserConfirmationServiceImpl implements UserConfirmationService {
     public Result add(UserConfirmation userConfirmation) {
 
         userConfirmation.setIsConfirmedDate(LocalDate.now());
-
-        if (userConfirmation.isConfirmed() == false) {
-
-            userConfirmation.setConfirmed(false);
-
-            userConfirmationRepository.save(userConfirmation);
-            emailService.sendEmail(userConfirmation.getUser());
-            return new ErrorResult("Membership not confirmed.");
-        }
-
-        userConfirmation.setConfirmed(true);
-
         userConfirmationRepository.save(userConfirmation);
         emailService.sendEmail(userConfirmation.getUser());
+
+        if (userConfirmation.isConfirmed() == false) {
+            return new ErrorResult("Membership not confirmed.");
+        }
         return new SuccessResult("Membership confirmed");
     }
 }
