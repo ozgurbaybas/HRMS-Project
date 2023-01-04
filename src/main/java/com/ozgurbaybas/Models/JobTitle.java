@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobTitle"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "job_titles")
 public class JobTitle {
 
