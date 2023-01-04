@@ -1,10 +1,12 @@
 package com.ozgurbaybas.Controllers;
 
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
+import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Models.Candidate;
 import com.ozgurbaybas.Services.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,4 +27,8 @@ public class CandidatesController {
     public DataResult<List<Candidate>> getAll() {
         return this.candidateService.getAll();
     }
+
+    @PostMapping("/activate")
+    public Result activate(String code) { return candidateService.activate(code); }
+
 }

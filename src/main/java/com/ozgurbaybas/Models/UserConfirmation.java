@@ -1,5 +1,6 @@
 package com.ozgurbaybas.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "user" })
 @Table(name = "user_confirmations")
 public class UserConfirmation {
 
@@ -18,9 +20,6 @@ public class UserConfirmation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-
-    @Column(name = "is_confirmed")
-    private boolean isConfirmed;
 
     @Column(name = "is_confirmed_date")
     private LocalDate isConfirmedDate;
@@ -32,5 +31,10 @@ public class UserConfirmation {
     @ManyToOne()
     @JoinColumn(name = "company_staff_id")
     private CompanyStaff companyStaff;
+
+    public UserConfirmation(User user, CompanyStaff companyStaff){
+        this.setUser(user);
+        this.setCompanyStaff(companyStaff);
+    }
 
 }

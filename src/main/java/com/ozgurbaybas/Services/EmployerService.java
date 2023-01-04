@@ -3,7 +3,6 @@ package com.ozgurbaybas.Services;
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Models.Employer;
-import com.ozgurbaybas.Models.UserActivation;
 
 import java.util.List;
 
@@ -13,5 +12,7 @@ public interface EmployerService {
     Result delete(Employer employer);
     DataResult<List<Employer>> getAll();
     DataResult<Employer> getById(int id);
-    Result activate(UserActivation userActivation);
+    Result activate(String code);
+    Result confirm(Integer employerId, Integer companyStaffId, boolean isConfirmed);
+    DataResult<List<Employer>> getByIsActivatedAndIsConfirmed(boolean isActivated, boolean isConfirmed);
 }

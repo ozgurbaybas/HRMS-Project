@@ -1,14 +1,13 @@
 package com.ozgurbaybas.Services;
 
-import com.ozgurbaybas.Core.Utilities.Result.ErrorResult;
-import com.ozgurbaybas.Core.Utilities.Result.Result;
-import com.ozgurbaybas.Core.Utilities.Result.SuccessResult;
+import com.ozgurbaybas.Core.Utilities.Result.*;
 import com.ozgurbaybas.Models.UserConfirmation;
 import com.ozgurbaybas.Repository.UserConfirmationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class UserConfirmationServiceImpl implements UserConfirmationService {
@@ -24,14 +23,33 @@ public class UserConfirmationServiceImpl implements UserConfirmationService {
 
     @Override
     public Result add(UserConfirmation userConfirmation) {
-
         userConfirmation.setIsConfirmedDate(LocalDate.now());
         userConfirmationRepository.save(userConfirmation);
         emailService.sendEmail(userConfirmation.getUser());
+        return new SuccessResult();
+    }
 
-        if (userConfirmation.isConfirmed() == false) {
-            return new ErrorResult("Membership not confirmed.");
-        }
-        return new SuccessResult("Membership confirmed");
+    @Override
+    public Result update(UserConfirmation userConfirmation) {
+
+        userConfirmationRepository.save(userConfirmation);
+        return new SuccessResult();
+    }
+
+    @Override
+    public Result delete(UserConfirmation userConfirmation) {
+
+        userConfirmationRepository.delete(userConfirmation);
+        return new SuccessResult();
+    }
+
+    @Override
+    public DataResult<List<UserConfirmation>> getAll() {
+        return new SuccessDataResult<List<UserConfirmation>>(userConfirmationRepository.findAll());
+    }
+
+    @Override
+    public DataResult<UserConfirmation> getById(int id) {
+        return new SuccessDataResult<UserConfirmation>(userConfirmationRepository.getById(id));
     }
 }

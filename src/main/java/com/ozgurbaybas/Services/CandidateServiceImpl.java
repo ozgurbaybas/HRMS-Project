@@ -38,6 +38,7 @@ public class CandidateServiceImpl implements CandidateService {
             return new ErrorResult("The entered ID number belongs to another account.");
         }
 
+        candidate.setActivated(false);
         candidateRepository.save(candidate);
         return userActivationService.add(new UserActivation(candidate));
     }
@@ -70,12 +71,18 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public Result activate(UserActivation userActivation) {
+    public Result activate(String code) {
 
-        userActivation.setActivated(true);
+        UserActivation userActivation = userActivationService.getByCode(code).getData();
+
+        if (userActivation == null) {
+            return new ErrorResult("Geçersiz bir kod girdiniz.");
+        }
+
+        getById(userActivation.getUser().getId()).getData().setActivated(true);
         userActivation.setIsActivatedDate(LocalDate.now());
 
-        userActivationService.update(userActivation);
+        userActivationService.update(userActivationService.getByCode(code).getData());
         return new SuccessResult("Membership procedures have been completed.");
     }
 
