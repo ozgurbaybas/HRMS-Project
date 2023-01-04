@@ -12,4 +12,5 @@ public interface JobTitleService {
     Result update(JobTitle jobTitle);
     Result delete(JobTitle jobTitle);
     DataResult<JobTitle> getById(Long id);
+    DataResult<JobTitle> getByTitle(String title);
 }

@@ -4,4 +4,5 @@ import com.ozgurbaybas.Models.JobTitle;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface JobTitleRepository extends JpaRepository<JobTitle, Long> {
+    JobTitle getByTitle(String title);
 }

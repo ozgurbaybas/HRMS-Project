@@ -29,4 +29,9 @@ public class UserServiceImpl implements UserService {
         return new SuccessDataResult<User>(userRepository.getById(id));
     }
 
+    @Override
+    public DataResult<User> getByEmail(String email) {
+        return new SuccessDataResult<User>(userRepository.getByEmail(email));
+    }
+
 }

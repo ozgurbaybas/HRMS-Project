@@ -51,6 +51,11 @@ public class JobTitleServiceImpl implements JobTitleService {
         return new SuccessDataResult<JobTitle>(jobTitleRepository.getById(id));
     }
 
+    @Override
+    public DataResult<JobTitle> getByTitle(String title) {
+        return new SuccessDataResult<JobTitle>(jobTitleRepository.getByTitle(title));
+    }
+
     private boolean checkIfJobTitleExists(String title) {
 
         boolean result = false;

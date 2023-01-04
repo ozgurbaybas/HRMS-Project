@@ -79,6 +79,11 @@ public class CandidateServiceImpl implements CandidateService {
         return new SuccessResult("Membership procedures have been completed.");
     }
 
+    @Override
+    public DataResult<Candidate> getByIdentityNumber(String identityNumber) {
+        return new SuccessDataResult<Candidate>(candidateRepository.getByIdentityNumber(identityNumber));
+    }
+
     private boolean checkIfNullField(Candidate candidate) {
 
         boolean result = false;
