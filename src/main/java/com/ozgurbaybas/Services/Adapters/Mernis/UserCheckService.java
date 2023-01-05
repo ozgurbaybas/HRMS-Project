@@ -1,6 +1,5 @@
 package com.ozgurbaybas.Services.Adapters.Mernis;
 
-import java.time.LocalDate;
 
 public interface UserCheckService {
 

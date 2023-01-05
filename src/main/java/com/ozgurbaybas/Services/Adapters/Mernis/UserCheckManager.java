@@ -2,8 +2,6 @@ package com.ozgurbaybas.Services.Adapters.Mernis;
 
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-
 @Service
 public class UserCheckManager implements UserCheckService {
 
