@@ -33,7 +33,7 @@ public class EmployerServiceImpl implements EmployerService {
     public Result add(Employer employer) {
 
         if (!checkIfDomainsMatch(employer.getWebAddress(), employer.getEmail())) {
-            return new ErrorResult("Web adresi ile e-posta aynı alan adına sahip olmalıdır.");
+            return new ErrorResult("The web address and the e-mail must have the same domain name.");
         }
 
         employer.setActivated(false);
@@ -66,7 +66,7 @@ public class EmployerServiceImpl implements EmployerService {
     }
 
     @Override
-    public DataResult<List<Employer>> getByIsActivatedAndIsConfirmed(boolean isActivated, boolean isConfirmed) {
+    public DataResult<List<Employer>> getAllByIsActivatedAndIsConfirmed(boolean isActivated, boolean isConfirmed) {
         return new SuccessDataResult<List<Employer>>(employerRepository.getByIsActivatedAndIsConfirmed(isActivated, isConfirmed));
     }
 

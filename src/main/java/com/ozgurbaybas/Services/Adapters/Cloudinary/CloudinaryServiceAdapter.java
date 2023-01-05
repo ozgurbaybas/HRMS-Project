@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Map;
 
 @Service
 public class CloudinaryServiceAdapter implements CloudStorageService {
@@ -28,7 +29,7 @@ public class CloudinaryServiceAdapter implements CloudStorageService {
     public DataResult<?> upload(MultipartFile multipartFile) {
 
         try {
-            var uploadResult = cloudinary.uploader(). upload(multipartFile.getBytes(), ObjectUtils.emptyMap());
+            Map<?, ?> uploadResult = cloudinary.uploader(). upload(multipartFile.getBytes(), ObjectUtils.emptyMap());
             return new SuccessDataResult<>(uploadResult);
         } catch (IOException e) {
             e.printStackTrace();

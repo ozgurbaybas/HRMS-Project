@@ -9,6 +9,7 @@ import com.ozgurbaybas.Models.JobPosting;
 import com.ozgurbaybas.Repository.JobPostingRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -23,6 +24,9 @@ public class JobPostingServiceImpl implements JobPostingService {
 
     @Override
     public Result add(JobPosting jobPosting) {
+
+        jobPosting.setPostingDate(LocalDate.now());
+        jobPosting.setActive(false);
 
         jobPostingRepository.save(jobPosting);
         return new SuccessResult("Job posting added.");
@@ -72,4 +76,21 @@ public class JobPostingServiceImpl implements JobPostingService {
         return new SuccessDataResult<List<JobPostingWithEmployerAndJobTitleDto>>(jobPostingRepository.getJobPostingWithEmployerAndJobTitleDtoByIsActiveAndCompanyName(true, companyName));
     }
 
+    @Override
+    public Result doActiveOrPassive(int id, boolean isActive) {
+
+        String statusMessage;
+
+        if (isActive) {
+            statusMessage = "The ad has been activated.";
+        } else {
+            statusMessage = "The ad has been deactivated.";
+        }
+
+        JobPosting jobPosting = getById(id).getData();
+        jobPosting.setActive(isActive);
+
+        update(jobPosting);
+        return new SuccessResult(statusMessage);
+    }
 }

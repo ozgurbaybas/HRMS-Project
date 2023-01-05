@@ -19,4 +19,6 @@ public interface JobPostingService {
 
 
     //DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsSortedByPostingDate();
+
+    Result doActiveOrPassive(int id, boolean isActive);
 }
