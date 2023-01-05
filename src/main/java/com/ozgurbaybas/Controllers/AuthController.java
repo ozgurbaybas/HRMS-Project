@@ -18,16 +18,16 @@ public class AuthController {
 
     @Autowired
     public AuthController(AuthService authService) {
-        this.authService = authService;
+        authService = authService;
     }
 
     @PostMapping("/registerCandidate")
     public Result registerCandidate(@RequestBody Candidate candidate, String confirmPassword) {
-        return this.authService.resgisterCandidate(candidate, confirmPassword);
+        return authService.resgisterCandidate(candidate, confirmPassword);
     }
 
     @PostMapping("/registerEmployer")
     public Result registerEmployer(@RequestBody Employer employer, String confirmPassword) {
-        return this.authService.resgisterEmployer(employer, confirmPassword);
+        return authService.resgisterEmployer(employer, confirmPassword);
     }
 }
