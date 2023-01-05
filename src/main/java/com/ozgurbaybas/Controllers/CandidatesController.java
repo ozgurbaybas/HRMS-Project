@@ -5,10 +5,7 @@ import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Models.Candidate;
 import com.ozgurbaybas.Services.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,4 +28,8 @@ public class CandidatesController {
     @PostMapping("/activate")
     public Result activate(String code) { return candidateService.activate(code); }
 
+    @GetMapping("getById")
+    public DataResult<Candidate> getById(@RequestParam int id) {
+        return candidateService.getById(id);
+    }
 }

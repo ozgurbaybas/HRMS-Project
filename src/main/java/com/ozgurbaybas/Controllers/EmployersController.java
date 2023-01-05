@@ -5,10 +5,7 @@ import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Models.Employer;
 import com.ozgurbaybas.Services.EmployerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +25,11 @@ public class EmployersController {
         return employerService.getAll();
     }
 
+    @GetMapping("getById")
+    public DataResult<Employer> getById(@RequestParam int id) {
+        return employerService.getById(id);
+    }
+
     @GetMapping("/getByIsActivatedAndIsConfirmed")
     public DataResult<List<Employer>> getByIsActivatedAndIsConfirmed(boolean isActivated, boolean isConfirmed) {
         return employerService.getByIsActivatedAndIsConfirmed(isActivated, isConfirmed);
@@ -37,7 +39,7 @@ public class EmployersController {
     public Result activate(String code) { return employerService.activate(code);}
 
     @PostMapping("/confirm")
-    public Result confirm(Integer employerId, Integer companyStaffId, boolean isConfirmed) {
+    public Result confirm(int employerId, int companyStaffId, boolean isConfirmed) {
         return employerService.confirm(employerId, companyStaffId, isConfirmed);
     }
 }

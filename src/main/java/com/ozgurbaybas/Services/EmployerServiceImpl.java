@@ -78,9 +78,12 @@ public class EmployerServiceImpl implements EmployerService {
         if (userActivation == null) {
             return new ErrorResult("You entered an invalid code.");
         }
-        getById(userActivation.getUser().getId()).getData().setActivated(true);
+
+        Employer employer = getById(userActivation.getUser().getId()).getData();
+        employer.setActivated(true);
         userActivation.setIsActivatedDate(LocalDate.now());
 
+        update(employer);
         userActivationService.update(userActivation);
         return new SuccessResult("Your membership is in the approval phase.");
     }

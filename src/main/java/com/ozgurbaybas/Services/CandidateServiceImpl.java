@@ -29,8 +29,7 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public Result add(Candidate candidate) {
 
-        if (!userCheckService.checkIfRealPerson(candidate.getIdentityNumber(), candidate.getFirstName(),
-                candidate.getLastName(), candidate.getYearOfBirth())) {
+        if (!userCheckService.checkIfRealPerson(candidate.getIdentityNumber(), candidate.getFirstName(), candidate.getLastName(), candidate.getYearOfBirth())) {
             return new ErrorResult("Please enter your information correctly.");
         }
 
@@ -76,13 +75,15 @@ public class CandidateServiceImpl implements CandidateService {
         UserActivation userActivation = userActivationService.getByCode(code).getData();
 
         if (userActivation == null) {
-            return new ErrorResult("Geçersiz bir kod girdiniz.");
+            return new ErrorResult("You entered an invalid code..");
         }
 
-        getById(userActivation.getUser().getId()).getData().setActivated(true);
+        Candidate candidate = getById(userActivation.getUser().getId()).getData();
+        candidate.setActivated(true);
         userActivation.setIsActivatedDate(LocalDate.now());
 
-        userActivationService.update(userActivationService.getByCode(code).getData());
+        update(candidate);
+        userActivationService.update(userActivation);
         return new SuccessResult("Membership procedures have been completed.");
     }
 
