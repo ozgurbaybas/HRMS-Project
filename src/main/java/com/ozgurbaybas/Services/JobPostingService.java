@@ -14,9 +14,9 @@ public interface JobPostingService {
     Result delete(JobPosting jobPosting);
     DataResult<List<JobPosting>> getAll();
     DataResult<JobPosting> getById(int id);
-    DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getActiveJobPostingDetails();
-    DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getActiveJobPostingDetailsByEmployerId(int employerId);
+    DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetails();
+    DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsByCompanyName(String companyName);
 
 
-    //DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getActiveJobPostingDetailsSortedByPostingDate();
+    //DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsSortedByPostingDate();
 }
