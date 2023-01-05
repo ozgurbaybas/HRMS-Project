@@ -1,20 +1,18 @@
 package com.ozgurbaybas.Models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import com.ozgurbaybas.Core.Entities.User;
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "jobPostings"})
 @PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
 @Table(name = "employers")
 public class Employer extends User {
@@ -34,6 +32,4 @@ public class Employer extends User {
     @Column(name = "is_confirmed")
     private boolean isConfirmed;
 
-    @OneToMany(mappedBy = "employer")
-    private List<JobPosting> jobPostings;
 }

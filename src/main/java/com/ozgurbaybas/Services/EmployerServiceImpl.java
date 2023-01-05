@@ -100,6 +100,7 @@ public class EmployerServiceImpl implements EmployerService {
             return new ErrorResult("Membership not confirmed.");
         }
 
+        update(employer);
         employer.setConfirmed(isConfirmed);
         userConfirmationService.add(new UserConfirmation(employer, companyStaff));
         return new SuccessResult("Membership confirmed.");

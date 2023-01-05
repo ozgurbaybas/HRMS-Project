@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.ozgurbaybas.Core.Entities.User;
 import javax.persistence.*;
 import java.time.LocalDate;
 

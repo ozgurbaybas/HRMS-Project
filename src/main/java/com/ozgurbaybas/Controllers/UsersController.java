@@ -32,9 +32,4 @@ public class UsersController {
         return userService.getById(id);
     }
 
-    @GetMapping("/getByEmail")
-    public DataResult<User> getByEmail(@RequestParam String email) {
-        return userService.getByEmail(email);
-    }
-
 }

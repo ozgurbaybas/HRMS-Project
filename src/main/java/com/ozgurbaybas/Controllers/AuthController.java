@@ -1,14 +1,20 @@
 package com.ozgurbaybas.Controllers;
 
+import com.ozgurbaybas.Core.Utilities.Result.ErrorDataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Models.Candidate;
 import com.ozgurbaybas.Models.Employer;
 import com.ozgurbaybas.Services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -22,12 +28,27 @@ public class AuthController {
     }
 
     @PostMapping("/registerCandidate")
-    public Result registerCandidate(@RequestBody Candidate candidate, String confirmPassword) {
-        return authService.resgisterCandidate(candidate, confirmPassword);
+    public ResponseEntity<?> registerCandidate(@Valid @RequestBody Candidate candidate, String confirmPassword) {
+        return ResponseEntity.ok(authService.resgisterCandidate(candidate, confirmPassword));
     }
 
     @PostMapping("/registerEmployer")
-    public Result registerEmployer(@RequestBody Employer employer, String confirmPassword) {
-        return authService.resgisterEmployer(employer, confirmPassword);
+    public ResponseEntity<?> registerEmployer(@Valid @RequestBody Employer employer, String confirmPassword) {
+        return ResponseEntity.ok(authService.resgisterEmployer(employer, confirmPassword));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {
+
+        Map<String, String> validationErrors = new HashMap<String, String>();
+
+        for(FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
+            validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
+        }
+
+        ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors);
+
+        return errors;
     }
 }

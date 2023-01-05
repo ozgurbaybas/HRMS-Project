@@ -2,8 +2,8 @@ package com.ozgurbaybas.Services;
 
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Core.Utilities.Result.SuccessDataResult;
-import com.ozgurbaybas.Models.User;
-import com.ozgurbaybas.Repository.UserRepository;
+import com.ozgurbaybas.Core.Entities.User;
+import com.ozgurbaybas.Core.DataAccess.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

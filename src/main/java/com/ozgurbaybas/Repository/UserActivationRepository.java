@@ -1,6 +1,6 @@
 package com.ozgurbaybas.Repository;
 
-import com.ozgurbaybas.Models.User;
+import com.ozgurbaybas.Core.Entities.User;
 import com.ozgurbaybas.Models.UserActivation;
 import org.springframework.data.jpa.repository.JpaRepository;
 

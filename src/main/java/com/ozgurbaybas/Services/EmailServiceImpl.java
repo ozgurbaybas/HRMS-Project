@@ -2,7 +2,7 @@ package com.ozgurbaybas.Services;
 
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Core.Utilities.Result.SuccessResult;
-import com.ozgurbaybas.Models.User;
+import com.ozgurbaybas.Core.Entities.User;
 import org.springframework.stereotype.Service;
 
 @Service
