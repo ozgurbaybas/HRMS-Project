@@ -2,9 +2,9 @@ package com.ozgurbaybas.Services;
 
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
+import com.ozgurbaybas.Models.Image;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 
 public interface ImageService extends BaseEntityService<Image> {
 

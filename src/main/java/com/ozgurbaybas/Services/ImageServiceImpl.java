@@ -32,31 +32,31 @@ public class ImageServiceImpl implements ImageService {
     public Result add(Image image) {
 
         imageRepository.save(image);
-        return new SuccessResult("İmaj eklendi.");
+        return new SuccessResult("Image added.");
     }
 
     @Override
     public Result update(Image image) {
 
         imageRepository.save(image);
-        return new SuccessResult("İmaj güncellendi.");
+        return new SuccessResult("Image update.");
     }
 
     @Override
     public Result delete(Image image) {
 
         imageRepository.delete(image);
-        return new SuccessResult("İmaj silindi.");
+        return new SuccessResult("Image delete.");
     }
 
     @Override
-    public DataResult<List<java.awt.Image>> getAll() {
-        return new SuccessDataResult<List<java.awt.Image>>(imageRepository.findAll());
+    public DataResult<List<Image>> getAll() {
+        return new SuccessDataResult<List<Image>>(imageRepository.findAll());
     }
 
     @Override
-    public DataResult<java.awt.Image> getById(int id) {
-        return new SuccessDataResult<java.awt.Image>(imageRepository.getById(id));
+    public DataResult<Image> getById(int id) {
+        return new SuccessDataResult<Image>(imageRepository.getById(id));
     }
 
     @Override
@@ -72,8 +72,8 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public DataResult<java.awt.Image> getByUserId(int userId) {
-        return new SuccessDataResult<java.awt.Image>(imageRepository.getByUser_Id(userId));
+    public DataResult<Image> getByUserId(int userId) {
+        return new SuccessDataResult<Image>(imageRepository.getByUser_Id(userId));
     }
 
 }
