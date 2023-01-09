@@ -1,5 +1,6 @@
 package com.ozgurbaybas.Services;
 
+
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Core.Utilities.Result.SuccessDataResult;
@@ -45,6 +46,12 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Result delete(Image image) {
 
+        String[] splitImageUrlArray1 = image.getUrl().split("/");
+        int indexOfExtension = splitImageUrlArray1[splitImageUrlArray1.length - 1].indexOf(".");
+        String publicIdOfImage = splitImageUrlArray1[splitImageUrlArray1.length - 1].substring(0, indexOfExtension);
+
+        cloudStorageService.delete(publicIdOfImage);
+
         imageRepository.delete(image);
         return new SuccessResult("Image delete.");
     }
@@ -59,15 +66,13 @@ public class ImageServiceImpl implements ImageService {
         return new SuccessDataResult<Image>(imageRepository.getById(id));
     }
 
+
     @Override
     public Result upload(int userId, MultipartFile file) {
-
         Map<?, ?> uploadImage = (Map<?, ?>) cloudStorageService.upload(file).getData();
-
         Image image = new Image();
         image.setUser(userService.getById(userId).getData());
         image.setUrl(uploadImage.get("url").toString());
-
         return add(image);
     }
 
