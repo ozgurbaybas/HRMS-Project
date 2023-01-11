@@ -15,9 +15,4 @@ public class DataResult<T> extends Result {
         super(success, message);
         this.data = data;
     }
-
-    public JobPosting getData() {
-        return this.data;
-    }
-
 }

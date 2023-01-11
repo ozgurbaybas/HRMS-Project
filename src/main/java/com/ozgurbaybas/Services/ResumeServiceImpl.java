@@ -1,6 +1,6 @@
 package com.ozgurbaybas.Services;
 
-import com.ozgurbaybas.Core.Entities.User;
+import com.ozgurbaybas.Models.User;
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Core.Utilities.Result.SuccessDataResult;
@@ -65,7 +65,7 @@ public class ResumeServiceImpl implements ResumeService {
         return new SuccessDataResult<Resume>(resumeRepository.getById(id));
     }
 
-    /*
+
     @Override
     public Result addCoverLetterToResume(int resumeId, int coverLetterId) {
 
@@ -75,7 +75,7 @@ public class ResumeServiceImpl implements ResumeService {
         update(resume);
         return new SuccessResult("Cover letter added to resume.");
     }
-     */
+
 
     @Override
     public DataResult<Resume> getByCandidateId(int candidateId) {

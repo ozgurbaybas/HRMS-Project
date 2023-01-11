@@ -1,10 +1,10 @@
 package com.ozgurbaybas.Services;
 
+import com.ozgurbaybas.Models.User;
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Core.Utilities.Result.SuccessDataResult;
 import com.ozgurbaybas.Core.Utilities.Result.SuccessResult;
-import com.ozgurbaybas.Core.Entities.User;
 import com.ozgurbaybas.Models.UserActivation;
 import com.ozgurbaybas.Repository.UserActivationRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,8 @@
 package com.ozgurbaybas.Services;
 
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
-import com.ozgurbaybas.Core.Entities.User;
+import com.ozgurbaybas.Models.User;
+
 
 import java.util.List;
 
