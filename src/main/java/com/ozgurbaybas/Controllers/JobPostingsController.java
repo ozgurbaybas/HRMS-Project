@@ -54,12 +54,12 @@ public class JobPostingsController {
      */
 
     @GetMapping("/getAllActiveJobPostingDetailsByCompanyName")
-    public DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsByCompanyName(String companyName) {
+    public DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsByCompanyName(@RequestParam String companyName) {
         return jobPostingService.getAllActiveJobPostingDetailsByCompanyName(companyName);
     }
 
     @PostMapping("/doActiveOrPassive")
-    public Result doActiveOrPassive(int id, boolean isActive) {
+    public Result doActiveOrPassive(@RequestParam int id, @RequestParam boolean isActive) {
         return jobPostingService.doActiveOrPassive(id, isActive);
     }
 }

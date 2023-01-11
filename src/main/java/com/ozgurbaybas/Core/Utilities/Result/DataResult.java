@@ -1,5 +1,7 @@
 package com.ozgurbaybas.Core.Utilities.Result;
 
+import com.ozgurbaybas.Models.JobPosting;
+
 public class DataResult<T> extends Result {
 
     private T data;
@@ -14,7 +16,7 @@ public class DataResult<T> extends Result {
         this.data = data;
     }
 
-    public User getData() {
+    public JobPosting getData() {
         return this.data;
     }
 

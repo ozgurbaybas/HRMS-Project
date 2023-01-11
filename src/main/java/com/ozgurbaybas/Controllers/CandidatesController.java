@@ -26,7 +26,7 @@ public class CandidatesController {
     }
 
     @PostMapping("/activate")
-    public Result activate(String code) { return candidateService.activate(code); }
+    public Result activate(@RequestParam String code) { return candidateService.activate(code); }
 
     @GetMapping("getById")
     public DataResult<Candidate> getById(@RequestParam int id) {
