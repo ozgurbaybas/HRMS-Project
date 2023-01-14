@@ -23,4 +23,8 @@ public class CoverLetter {
     @Column(name = "content")
     private String content;
 
+    @ManyToOne
+    @JoinColumn(name = "candidate_id")
+    private Candidate candidate;
+
 }

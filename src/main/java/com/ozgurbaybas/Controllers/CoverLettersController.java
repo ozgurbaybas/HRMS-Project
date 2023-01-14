@@ -45,4 +45,9 @@ public class CoverLettersController {
         return coverLetterService.getById(id);
     }
 
+    @GetMapping("/getByCandidateId")
+    public DataResult<CoverLetter> getByCandidateId(@RequestParam int candidateId) {
+        return coverLetterService.getByCandidateId(candidateId);
+    }
+
 }

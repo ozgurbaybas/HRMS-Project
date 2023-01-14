@@ -52,4 +52,9 @@ public class CoverLetterServiceImpl implements CoverLetterService {
         return new SuccessDataResult<CoverLetter>(coverLetterRepository.getById(id));
     }
 
+    @Override
+    public DataResult<CoverLetter> getByCandidateId(int candidateId) {
+        return new SuccessDataResult<CoverLetter>(coverLetterRepository.getByCandidate_Id(candidateId));
+    }
+
 }
