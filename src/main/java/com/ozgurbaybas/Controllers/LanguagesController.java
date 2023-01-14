@@ -32,11 +32,6 @@ public class LanguagesController {
         return languageService.update(language);
     }
 
-    @PostMapping("/delete")
-    public Result delete(@RequestBody Language language) {
-        return languageService.delete(language);
-    }
-
     @GetMapping("/getAll")
     public DataResult<List<Language>> getAll() {
         return languageService.getAll();
