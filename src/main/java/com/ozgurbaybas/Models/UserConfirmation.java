@@ -25,7 +25,7 @@ public class UserConfirmation {
     @Column(name = "is_confirmed_date")
     private LocalDate isConfirmedDate;
 
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
 

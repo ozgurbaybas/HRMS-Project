@@ -21,6 +21,11 @@ public class EmployersController {
         employerService = employerService;
     }
 
+    @PostMapping("/update")
+    public Result update(@RequestBody Employer employer) {
+        return employerService.update(employer);
+    }
+
     @GetMapping("/getAll")
     public DataResult<List<Employer>> getAll() {
         return employerService.getAll();
@@ -31,7 +36,7 @@ public class EmployersController {
         return employerService.getById(id);
     }
 
-    @GetMapping("/getByIsActivatedAndIsConfirmed")
+    @GetMapping("/getAllByIsActivatedAndIsConfirmed")
     public DataResult<List<Employer>> getAllByIsActivatedAndIsConfirmed(@RequestParam boolean isActivated, @RequestParam boolean isConfirmed) {
         return employerService.getAllByIsActivatedAndIsConfirmed(isActivated, isConfirmed);
     }

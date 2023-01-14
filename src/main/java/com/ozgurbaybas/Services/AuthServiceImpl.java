@@ -4,59 +4,36 @@ import com.ozgurbaybas.Core.Utilities.Result.ErrorResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Models.Candidate;
 import com.ozgurbaybas.Models.Employer;
+import com.ozgurbaybas.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthServiceImpl implements AuthService {
+public class AuthManager implements AuthService {
 
-    private UserService userService;
     private CandidateService candidateService;
     private EmployerService employerService;
 
     @Autowired
-    public AuthServiceImpl(UserService userService, CandidateService candidateService, EmployerService employerService) {
-        this.userService = userService;
+    public AuthManager(CandidateService candidateService, EmployerService employerService) {
         this.candidateService = candidateService;
         this.employerService = employerService;
     }
 
     @Override
-    public Result resgisterCandidate(Candidate candidate, String confirmPassword) {
+    public Result resgisterCandidate(Candidate user, String confirmPassword) {
 
-        if (!checkIfEmailExists(candidate.getEmail())) {
-            return new ErrorResult("The e-mail address entered belongs to another account.");
-        }
+        validateUser(user, confirmPassword);
 
-        if (!checkIfPasswordsMatch(candidate.getPassword(), confirmPassword)) {
-            return new ErrorResult("Password matching did not occur. Please check and try again.");
-        }
-
-        return candidateService.add(candidate);
+        return candidateService.add(user);
     }
 
     @Override
-    public Result resgisterEmployer(Employer employer, String confirmPassword) {
+    public Result resgisterEmployer(Employer user, String confirmPassword) {
 
-        if (!checkIfEmailExists(employer.getEmail())) {
-            return new ErrorResult("The e-mail address entered belongs to another account.");
-        }
+        validateUser(user, confirmPassword);
 
-        if (!checkIfPasswordsMatch(employer.getPassword(), confirmPassword)) {
-            return new ErrorResult("Password matching did not occur. Please check and try again.");
-        }
-
-        return employerService.add(employer);
-    }
-
-    private boolean checkIfEmailExists(String email) {
-
-        boolean result = false;
-
-        if (userService.getByEmail(email).getData() == null) {
-            result = true;
-        }
-        return result;
+        return employerService.add(user);
     }
 
     private boolean checkIfPasswordsMatch(String password, String confirmPassword) {
@@ -66,6 +43,17 @@ public class AuthServiceImpl implements AuthService {
         if (password.equals(confirmPassword)) {
             result = true;
         }
+
         return result;
     }
+
+    private Result validateUser(User user, String confirmPassword) {
+
+        if (!checkIfPasswordsMatch(user.getPassword(), confirmPassword)) {
+            return new ErrorResult("Parola eşleşmesi gerçekleşmedi. Lütfen kontrol ederek yeniden deneyiniz.");
+        }
+
+        return null;
+    }
+
 }

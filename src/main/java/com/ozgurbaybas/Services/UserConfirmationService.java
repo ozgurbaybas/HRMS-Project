@@ -13,4 +13,5 @@ public interface UserConfirmationService {
     Result delete(UserConfirmation userConfirmation);
     DataResult<List<UserConfirmation>> getAll();
     DataResult<UserConfirmation> getById(int id);
+    DataResult<List<UserConfirmation>> getAllByUserId(int userId);
 }

@@ -52,4 +52,9 @@ public class UserConfirmationServiceImpl implements UserConfirmationService {
     public DataResult<UserConfirmation> getById(int id) {
         return new SuccessDataResult<UserConfirmation>(userConfirmationRepository.getById(id));
     }
+
+    @Override
+    public DataResult<List<UserConfirmation>> getAllByUserId(int userId) {
+        return new SuccessDataResult<List<UserConfirmation>>(userConfirmationRepository.getByUser_Id(userId));
+    }
 }
