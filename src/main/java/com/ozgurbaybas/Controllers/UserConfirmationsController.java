@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/userConfirmations")
+@CrossOrigin
 public class UserConfirmationsController {
 
     private UserConfirmationService userConfirmationService;

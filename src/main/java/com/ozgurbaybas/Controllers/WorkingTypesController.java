@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/workingTypes")
+@CrossOrigin
 public class WorkingTypesController {
 
     private WorkingTypeService workingTypeService;

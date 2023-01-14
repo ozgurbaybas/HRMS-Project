@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/skills")
+@CrossOrigin
 public class SkillsController {
 
     private SkillService skillService;

@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/coverLetters")
+@CrossOrigin
 public class CoverLettersController {
 
     private CoverLetterService coverLetterService;

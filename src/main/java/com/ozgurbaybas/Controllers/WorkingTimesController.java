@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/workingTimes")
+@CrossOrigin
 public class WorkingTimesController {
 
     private WorkingTimeService workingTimeService;

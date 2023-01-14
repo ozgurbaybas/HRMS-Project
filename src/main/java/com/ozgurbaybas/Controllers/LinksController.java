@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/links")
+@CrossOrigin
 public class LinksController {
 
     private LinkService linkService;
