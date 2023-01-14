@@ -1,15 +1,16 @@
 package com.ozgurbaybas.Services;
 
-import com.ozgurbaybas.Core.Utilities.Result.DataResult;
-import com.ozgurbaybas.Core.Utilities.Result.Result;
-import com.ozgurbaybas.Core.Utilities.Result.SuccessDataResult;
-import com.ozgurbaybas.Core.Utilities.Result.SuccessResult;
+import com.ozgurbaybas.Core.Utilities.Result.*;
+import com.ozgurbaybas.Models.CompanyStaff;
 import com.ozgurbaybas.Models.DTO.JobPostingWithEmployerAndJobTitleDto;
 import com.ozgurbaybas.Models.JobPosting;
+import com.ozgurbaybas.Models.JobPostingConfirmation;
 import com.ozgurbaybas.Repository.JobPostingRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,19 +18,24 @@ import java.util.List;
 public class JobPostingServiceImpl implements JobPostingService {
 
     private JobPostingRepository jobPostingRepository;
+    private JobPostingConfirmationService jobPostingConfirmationService;
+    private CompanyStaffService companyStaffService;
 
-    public JobPostingServiceImpl(JobPostingRepository jobPostingRepository) {
+    public JobPostingServiceImpl(JobPostingRepository jobPostingRepository, JobPostingConfirmationService jobPostingConfirmationService, CompanyStaffService companyStaffService) {
         this.jobPostingRepository = jobPostingRepository;
+        this.jobPostingConfirmationService = jobPostingConfirmationService;
+        this.companyStaffService = companyStaffService;
+
     }
 
     @Override
     public Result add(JobPosting jobPosting) {
 
-        jobPosting.setPostingDate(LocalDate.now());
+        jobPosting.setPostingDate(LocalDateTime.now());
         jobPosting.setActive(false);
-
+        jobPosting.setConfirmed(false);
         jobPostingRepository.save(jobPosting);
-        return new SuccessResult("Job posting added.");
+        return new SuccessResult("Job posting is under approval.");
     }
 
     @Override
@@ -57,6 +63,24 @@ public class JobPostingServiceImpl implements JobPostingService {
     }
 
     @Override
+    public Result confirm(int jobPostingId, int companyStaffId, boolean isConfirmed) {
+
+        JobPosting jobPosting = getById(jobPostingId).getData();
+        CompanyStaff companyStaff = companyStaffService.getById(companyStaffId).getData();
+
+        if(!isConfirmed) {
+            delete(jobPosting);
+            return new ErrorResult("The job posting was not approved.");
+        }
+
+        jobPosting.setConfirmed(isConfirmed);
+
+        update(jobPosting);
+        jobPostingConfirmationService.add(new JobPostingConfirmation(jobPosting, companyStaff));
+        return new SuccessResult("Job posting approved.");
+    }
+
+    @Override
     public DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetails() {
         return new SuccessDataResult<List<JobPostingWithEmployerAndJobTitleDto>>(jobPostingRepository.getJobPostingWithEmployerAndJobTitleDtoByIsActive(true));
     }
@@ -70,6 +94,22 @@ public class JobPostingServiceImpl implements JobPostingService {
         return new SuccessDataResult<List<JobPostingWithEmployerAndJobTitleDto>>(jobPostingDao.getJobPostingWithEmployerAndJobTitleDtoByIsActive(true, sort));
     }
     */
+
+    @Override
+    public DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsSortedByPostingDateTop6() {
+
+        List<JobPostingWithEmployerAndJobTitleDto> result = getAllActiveJobPostingDetailsSortedByPostingDate().getData();
+
+        List<JobPostingWithEmployerAndJobTitleDto> listTop6 = new ArrayList<JobPostingWithEmployerAndJobTitleDto>();
+        listTop6.add(result.get(0));
+        listTop6.add(result.get(1));
+        listTop6.add(result.get(2));
+        listTop6.add(result.get(3));
+        listTop6.add(result.get(4));
+        listTop6.add(result.get(5));
+
+        return new SuccessDataResult<List<JobPostingWithEmployerAndJobTitleDto>>(listTop6);
+    }
 
     @Override
     public DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsByCompanyName(String companyName) {

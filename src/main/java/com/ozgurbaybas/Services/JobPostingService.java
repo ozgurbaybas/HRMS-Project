@@ -17,8 +17,9 @@ public interface JobPostingService {
     DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetails();
     DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsByCompanyName(String companyName);
 
-
     //DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsSortedByPostingDate();
 
     Result doActiveOrPassive(int id, boolean isActive);
+    Result confirm(int employerId, int companyStaffId, boolean isConfirmed);
+    DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsSortedByPostingDateTop6();
 }
