@@ -12,22 +12,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-@Table(name = "links")
-public class Link {
+@Table(name = "link_names")
+public class LinkName {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "url")
-    private String url;
+    @Column(name = "name")
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "resume_id")
-    private Resume resume;
-
-    @ManyToOne
-    @JoinColumn(name = "link_name_id")
-    private LinkName linkName;
 }
