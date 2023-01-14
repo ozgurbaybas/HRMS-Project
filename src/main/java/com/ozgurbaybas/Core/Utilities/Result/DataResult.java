@@ -15,4 +15,9 @@ public class DataResult<T> extends Result {
         super(success, message);
         this.data = data;
     }
+
+    public T getData() {
+        return this.data;
+    }
+
 }

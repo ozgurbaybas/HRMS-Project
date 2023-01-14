@@ -8,7 +8,8 @@ import com.ozgurbaybas.Models.JobPostingConfirmation;
 import com.ozgurbaybas.Repository.JobPostingRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import org.springframework.data.domain.Sort;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,19 +86,17 @@ public class JobPostingServiceImpl implements JobPostingService {
         return new SuccessDataResult<List<JobPostingWithEmployerAndJobTitleDto>>(jobPostingRepository.getJobPostingWithEmployerAndJobTitleDtoByIsActive(true));
     }
 
-    /*
+
     @Override
     public DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsSortedByPostingDate() {
-
         Sort sort = Sort.by(Sort.Direction.DESC, "postingDate");
-
-        return new SuccessDataResult<List<JobPostingWithEmployerAndJobTitleDto>>(jobPostingDao.getJobPostingWithEmployerAndJobTitleDtoByIsActive(true, sort));
+        return new SuccessDataResult<List<JobPostingWithEmployerAndJobTitleDto>>(jobPostingRepository.getJobPostingWithEmployerAndJobTitleDtoByIsActive(true, sort));
     }
-    */
+
+
 
     @Override
     public DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsSortedByPostingDateTop6() {
-
         List<JobPostingWithEmployerAndJobTitleDto> result = getAllActiveJobPostingDetailsSortedByPostingDate().getData();
 
         List<JobPostingWithEmployerAndJobTitleDto> listTop6 = new ArrayList<JobPostingWithEmployerAndJobTitleDto>();

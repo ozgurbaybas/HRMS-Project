@@ -5,6 +5,7 @@ import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Models.DTO.JobPostingWithEmployerAndJobTitleDto;
 import com.ozgurbaybas.Models.JobPosting;
 
+
 import java.util.List;
 
 public interface JobPostingService {
@@ -16,10 +17,9 @@ public interface JobPostingService {
     DataResult<JobPosting> getById(int id);
     DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetails();
     DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsByCompanyName(String companyName);
-
-    //DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsSortedByPostingDate();
-
+    DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsSortedByPostingDate();
     Result doActiveOrPassive(int id, boolean isActive);
     Result confirm(int employerId, int companyStaffId, boolean isConfirmed);
     DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsSortedByPostingDateTop6();
+
 }
