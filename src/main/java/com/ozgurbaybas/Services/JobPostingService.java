@@ -2,24 +2,20 @@ package com.ozgurbaybas.Services;
 
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
-import com.ozgurbaybas.Models.DTO.JobPostingWithEmployerAndJobTitleDto;
 import com.ozgurbaybas.Models.JobPosting;
 
 
 import java.util.List;
 
-public interface JobPostingService {
+public interface JobPostingService extends BaseEntityService<JobPosting> {
 
-    Result add(JobPosting jobPosting);
-    Result update(JobPosting jobPosting);
-    Result delete(JobPosting jobPosting);
-    DataResult<List<JobPosting>> getAll();
-    DataResult<JobPosting> getById(int id);
-    DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetails();
-    DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsByCompanyName(String companyName);
-    DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsSortedByPostingDate();
-    Result doActiveOrPassive(int id, boolean isActive);
     Result confirm(int employerId, int companyStaffId, boolean isConfirmed);
-    DataResult<List<JobPostingWithEmployerAndJobTitleDto>> getAllActiveJobPostingDetailsSortedByPostingDateTop6();
+    Result doActiveOrPassive(int id, boolean isActive);
+    DataResult<List<JobPosting>> getAllActiveJobPosting(int pageNo, int pageSize);
+    DataResult<List<JobPosting>> getAllActiveJobPostingSortedByPostingDate(int pageNo, int pageSize);
+    DataResult<List<JobPosting>> getAllActiveJobPostingSortedByPostingDateTop6();
+    DataResult<List<JobPosting>> getAllActiveJobPostingByEmployerId(int employerId);
+    DataResult<List<JobPosting>> getAllActiveJobPostingFilteredByWorkingTimeAndWorkingTypeAndCity(int workingTimeId, int workingTypeId, int cityId, int pageNo, int pageSize);
 
 }
+
