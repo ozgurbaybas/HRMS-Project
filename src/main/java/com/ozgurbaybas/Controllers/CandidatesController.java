@@ -21,6 +21,11 @@ public class CandidatesController {
         candidateService = candidateService;
     }
 
+    @PostMapping("/update")
+    public Result update(@RequestBody Candidate candidate) {
+        return candidateService.update(candidate);
+    }
+
     @GetMapping("/getAll")
     public DataResult<List<Candidate>> getAll() {
         return candidateService.getAll();
@@ -32,5 +37,10 @@ public class CandidatesController {
     @GetMapping("getById")
     public DataResult<Candidate> getById(@RequestParam int id) {
         return candidateService.getById(id);
+    }
+
+    @GetMapping("/getAllByIsActivated")
+    public DataResult<List<Candidate>> getAllByIsActivated(@RequestParam boolean isActivated) {
+        return candidateService.getAllByIsActivated(isActivated);
     }
 }

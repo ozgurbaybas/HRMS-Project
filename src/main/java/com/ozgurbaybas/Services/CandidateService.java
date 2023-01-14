@@ -14,4 +14,5 @@ public interface CandidateService {
     DataResult<Candidate> getById(int id);
     Result activate(String code);
     DataResult<Candidate> getByIdentityNumber(String identityNumber);
+    DataResult<List<Candidate>> getAllByIsActivated(boolean isActivated);
 }
