@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler"})
 @Table(name = "users")
-public class User {
+public class User extends Candidate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

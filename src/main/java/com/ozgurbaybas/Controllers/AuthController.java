@@ -3,6 +3,7 @@ package com.ozgurbaybas.Controllers;
 import com.ozgurbaybas.Core.Utilities.Result.ErrorDataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Models.Candidate;
+import com.ozgurbaybas.Models.CompanyStaff;
 import com.ozgurbaybas.Models.Employer;
 import com.ozgurbaybas.Services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,12 @@ public class AuthController {
 
     @Autowired
     public AuthController(AuthService authService) {
-        authService = authService;
+        this.authService = authService;
+    }
+
+    @PostMapping("/registerCompanyStaff")
+    public ResponseEntity<?> registerCompanyStaff(@Valid @RequestBody CompanyStaff companyStaff, String confirmPassword) {
+        return ResponseEntity.ok(authService.resgisterCompanyStaff(companyStaff, confirmPassword));
     }
 
     @PostMapping("/registerCandidate")
@@ -44,7 +50,7 @@ public class AuthController {
 
         Map<String, String> validationErrors = new HashMap<String, String>();
 
-        for(FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
+        for (FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
             validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
 
@@ -52,4 +58,5 @@ public class AuthController {
 
         return errors;
     }
+
 }
