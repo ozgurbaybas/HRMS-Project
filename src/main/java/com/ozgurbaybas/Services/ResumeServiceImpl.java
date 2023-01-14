@@ -1,6 +1,7 @@
 package com.ozgurbaybas.Services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +101,20 @@ public class ResumeServiceImpl implements ResumeService {
         );
 
         return new SuccessDataResult<ResumeWithAllRelatedEntitiesDto>(resumeWithAllRelatedEntitiesDto);
+    }
+
+    @Override
+    public DataResult<List<ResumeWithAllRelatedEntitiesDto>> getAllResumesDetailsByActivatedCandidate() {
+
+        List<ResumeWithAllRelatedEntitiesDto> resumes = new ArrayList<ResumeWithAllRelatedEntitiesDto>();
+
+        for (Resume resume : getAll().getData()) {
+            if (resume.getCandidate().isActivated() == true ) {
+                resumes.add(getResumeDetailsByCandidateId(resume.getCandidate().getId()).getData());
+            }
+        };
+
+        return new SuccessDataResult<List<ResumeWithAllRelatedEntitiesDto>>(resumes);
     }
 
 }
