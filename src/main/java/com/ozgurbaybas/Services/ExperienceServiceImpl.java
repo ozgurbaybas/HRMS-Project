@@ -1,6 +1,6 @@
 package com.ozgurbaybas.Services;
 
-
+import org.springframework.data.domain.Sort;
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Core.Utilities.Result.SuccessDataResult;
@@ -56,11 +56,10 @@ public class ExperienceServiceImpl implements ExperienceService {
         return new SuccessDataResult<List<Experience>>(experienceRepository.getByResume_Id(resumeId));
     }
 
-    /*
+
     @Override
     public DataResult<List<Experience>> getAllByResumeIdSortedByTerminationDate(int resumeId) {
         Sort sort = Sort.by(Sort.Direction.DESC, "terminationDate");
         return new SuccessDataResult<List<Experience>>(experienceRepository.getByResume_Id(resumeId, sort));
     }
-     */
 }

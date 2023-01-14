@@ -8,6 +8,6 @@ import java.util.List;
 public interface EducationService extends BaseEntityService<Education> {
 
     DataResult<List<Education>> getAllByResumeId(int resumeId);
-    //DataResult<List<Education>> getAllByResumeIdSortedByGraduationDate(int resumeId);
+    DataResult<List<Education>> getAllByResumeIdSortedByGraduationDate(int resumeId);
 
 }

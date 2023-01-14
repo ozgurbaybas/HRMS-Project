@@ -1,18 +1,17 @@
 package com.ozgurbaybas.Services;
 
-import com.ozgurbaybas.Models.User;
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Core.Utilities.Result.SuccessDataResult;
 import com.ozgurbaybas.Core.Utilities.Result.SuccessResult;
-import com.ozgurbaybas.Models.DTO.ResumeWithAllRelatedEntitiesDto;
-import com.ozgurbaybas.Models.Resume;
 import com.ozgurbaybas.Repository.ResumeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.List;
+import com.ozgurbaybas.Models.Resume;
+import com.ozgurbaybas.Models.DTO.ResumeWithAllRelatedEntitiesDto;
 
 @Service
 public class ResumeServiceImpl implements ResumeService {
@@ -69,8 +68,8 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public Result addCoverLetterToResume(int resumeId, int coverLetterId) {
 
-        User resume = getById(resumeId).getData();
-        resume.setCoverLetter(coverLetterService.getById(coverLetterId).getData());
+        Resume resume = getById(resumeId).getData();
+        ((Resume) resume).setCoverLetter(coverLetterService.getById(coverLetterId).getData());
 
         update(resume);
         return new SuccessResult("Cover letter added to resume.");
@@ -85,6 +84,8 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public DataResult<ResumeWithAllRelatedEntitiesDto> getResumeDetailsByCandidateId(int candidateId) {
 
+        Resume resume = getByCandidateId(candidateId).getData();
+
         ResumeWithAllRelatedEntitiesDto resumeWithAllRelatedEntitiesDto = new ResumeWithAllRelatedEntitiesDto(
                 resume.getId(),
                 resume.getCreationDate(),
@@ -97,6 +98,8 @@ public class ResumeServiceImpl implements ResumeService {
                 resume.getLinks(),
                 resume.getSkills()
         );
+
+        return new SuccessDataResult<ResumeWithAllRelatedEntitiesDto>(resumeWithAllRelatedEntitiesDto);
     }
 
 }

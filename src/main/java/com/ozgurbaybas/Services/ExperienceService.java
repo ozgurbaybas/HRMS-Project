@@ -8,6 +8,6 @@ import java.util.List;
 public interface ExperienceService extends BaseEntityService<Experience> {
 
     DataResult<List<Experience>> getAllByResumeId(int resumeId);
-   // DataResult<List<Experience>> getAllByResumeIdSortedByTerminationDate(int resumeId);
+    DataResult<List<Experience>> getAllByResumeIdSortedByTerminationDate(int resumeId);
 
 }

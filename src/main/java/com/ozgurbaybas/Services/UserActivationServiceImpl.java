@@ -1,6 +1,6 @@
 package com.ozgurbaybas.Services;
 
-import com.ozgurbaybas.Models.User;
+import com.ozgurbaybas.Models.Employer;
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Core.Utilities.Result.SuccessDataResult;
@@ -68,7 +68,7 @@ public class UserActivationServiceImpl implements UserActivationService {
 
 
     @Override
-    public DataResult<UserActivation> getByUser(User user) {
+    public DataResult<UserActivation> getByUser(Employer user) {
         return new SuccessDataResult<UserActivation>(userActivationRepository.getByUser(user));
     }
 

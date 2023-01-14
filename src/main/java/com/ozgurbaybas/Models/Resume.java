@@ -55,4 +55,8 @@ public class Resume {
     @OneToMany(mappedBy = "resume")
     private List<Skill> skills;
 
+    public Resume(Candidate candidate) {
+        this.setCandidate(candidate);
+    }
+
 }

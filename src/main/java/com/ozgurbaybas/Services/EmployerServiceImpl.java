@@ -22,7 +22,7 @@ public class EmployerServiceImpl implements EmployerService {
     private CompanyStaffService companyStaffService;
 
     @Autowired
-    public EmployerServiceImpl(EmployerRepository employerRepository,	UserActivationService userActivationService, UserConfirmationService userConfirmationService, CompanyStaffService companyStaffService) {
+    public EmployerServiceImpl(EmployerRepository employerRepository, UserActivationService userActivationService, UserConfirmationService userConfirmationService, CompanyStaffService companyStaffService) {
         this.employerRepository = employerRepository;
         this.userActivationService = userActivationService;
         this.companyStaffService = companyStaffService;
@@ -89,7 +89,7 @@ public class EmployerServiceImpl implements EmployerService {
     }
 
     @Override
-    public Result confirm(Integer employerId, Integer companyStaffId, boolean isConfirmed) {
+    public Result confirm(int employerId, int companyStaffId, boolean isConfirmed) {
 
         Employer employer =  getById(employerId).getData();
         CompanyStaff companyStaff = companyStaffService.getById(companyStaffId).getData();

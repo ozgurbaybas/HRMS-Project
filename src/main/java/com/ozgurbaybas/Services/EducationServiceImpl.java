@@ -8,6 +8,7 @@ import com.ozgurbaybas.Models.Education;
 import com.ozgurbaybas.Repository.EducationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -57,14 +58,12 @@ public class EducationServiceImpl implements EducationService {
         return new SuccessDataResult<List<Education>>(educationRepository.getByResume_Id(resumeId));
     }
 
-    /*
+
     @Override
     public DataResult<List<Education>> getAllByResumeIdSortedByGraduationDate(int resumeId) {
 
         Sort sort = Sort.by(Sort.Direction.DESC, "graduationDate");
-
         return new SuccessDataResult<List<Education>>(educationRepository.getByResume_Id(resumeId, sort));
     }
-     */
 
 }

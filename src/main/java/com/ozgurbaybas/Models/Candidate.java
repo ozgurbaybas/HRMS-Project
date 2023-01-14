@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -29,8 +30,8 @@ public class Candidate extends User {
     @Column(name = "identity_number")
     private String identityNumber;
 
-    @Column(name = "year_of_birth")
-    private int yearOfBirth;
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
 
     @Column(name = "is_activated")
     private boolean isActivated;

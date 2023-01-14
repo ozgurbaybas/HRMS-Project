@@ -13,6 +13,6 @@ public interface EmployerService {
     DataResult<List<Employer>> getAll();
     DataResult<Employer> getById(int id);
     Result activate(String code);
-    Result confirm(Integer employerId, Integer companyStaffId, boolean isConfirmed);
+    Result confirm(int employerId, int companyStaffId, boolean isConfirmed);
     DataResult<List<Employer>> getAllByIsActivatedAndIsConfirmed(boolean isActivated, boolean isConfirmed);
 }
