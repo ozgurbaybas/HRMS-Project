@@ -53,8 +53,8 @@ public class CoverLetterServiceImpl implements CoverLetterService {
     }
 
     @Override
-    public DataResult<CoverLetter> getByCandidateId(int candidateId) {
-        return new SuccessDataResult<CoverLetter>(coverLetterRepository.getByCandidate_Id(candidateId));
+    public DataResult<List<CoverLetter>> getAllByCandidateId(int candidateId) {
+        return new SuccessDataResult<List<CoverLetter>>(coverLetterRepository.getByCandidate_Id(candidateId));
     }
 
 }

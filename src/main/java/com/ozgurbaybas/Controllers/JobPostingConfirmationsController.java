@@ -21,21 +21,6 @@ public class JobPostingConfirmationsController {
         this.jobPostingConfirmationService = jobPostingConfirmationService;
     }
 
-    @PostMapping("/add")
-    public Result add(@RequestBody JobPostingConfirmation jobPostingConfirmation) {
-        return jobPostingConfirmationService.add(jobPostingConfirmation);
-    }
-
-    @PostMapping("/update")
-    public Result update(@RequestBody JobPostingConfirmation jobPostingConfirmation) {
-        return jobPostingConfirmationService.update(jobPostingConfirmation);
-    }
-
-    @PostMapping("/delete")
-    public Result delete(@RequestBody JobPostingConfirmation jobPostingConfirmation) {
-        return jobPostingConfirmationService.delete(jobPostingConfirmation);
-    }
-
     @GetMapping("/getAll")
     public DataResult<List<JobPostingConfirmation>> getAll() {
         return jobPostingConfirmationService.getAll();

@@ -21,21 +21,6 @@ public class UserActivationsController {
         this.userActivationService = userActivationService;
     }
 
-    @PostMapping("/add")
-    public Result add(@RequestBody UserActivation userActivation) {
-        return userActivationService.add(userActivation);
-    }
-
-    @PostMapping("/update")
-    public Result update(@RequestBody UserActivation userActivation) {
-        return userActivationService.update(userActivation);
-    }
-
-    @PostMapping("/delete")
-    public Result delete(@RequestBody UserActivation userActivation) {
-        return userActivationService.delete(userActivation);
-    }
-
     @GetMapping("/getAll")
     public DataResult<List<UserActivation>> getAll() {
         return userActivationService.getAll();

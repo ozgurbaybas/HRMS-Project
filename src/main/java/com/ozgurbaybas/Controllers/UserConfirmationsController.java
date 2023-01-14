@@ -21,21 +21,6 @@ public class UserConfirmationsController {
         this.userConfirmationService = userConfirmationService;
     }
 
-    @PostMapping("/add")
-    public Result add(@RequestBody UserConfirmation userConfirmation) {
-        return userConfirmationService.add(userConfirmation);
-    }
-
-    @PostMapping("/update")
-    public Result update(@RequestBody UserConfirmation userConfirmation) {
-        return userConfirmationService.update(userConfirmation);
-    }
-
-    @PostMapping("/delete")
-    public Result delete(@RequestBody UserConfirmation userConfirmation) {
-        return userConfirmationService.delete(userConfirmation);
-    }
-
     @GetMapping("/getAll")
     public DataResult<List<UserConfirmation>> getAll() {
         return userConfirmationService.getAll();

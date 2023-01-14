@@ -27,6 +27,9 @@ public class Education {
     @Column(name = "department")
     private String department;
 
+    @Column(name = "degree")
+    private String degree;
+
     @Column(name = "starting_date")
     private LocalDate startingDate;
 
@@ -42,7 +45,6 @@ public class Education {
         if (graduationDate == null) {
             return "Continues.";
         }
-
         return graduationDate.toString();
     }
 
