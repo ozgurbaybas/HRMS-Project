@@ -20,7 +20,16 @@ public class Level {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "level")
-    private String level;
+    @ManyToOne
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
+
+    @ManyToOne
+    @JoinColumn(name = "language_id")
+    private Language language;
+
+    @ManyToOne
+    @JoinColumn(name = "level_id")
+    private Level level;
 
 }
