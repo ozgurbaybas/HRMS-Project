@@ -2,6 +2,7 @@ package com.ozgurbaybas.Services;
 
 import com.ozgurbaybas.Core.Utilities.Result.*;
 import com.ozgurbaybas.Models.Candidate;
+import com.ozgurbaybas.Models.Resume;
 import com.ozgurbaybas.Models.UserActivation;
 import com.ozgurbaybas.Repository.CandidateRepository;
 import com.ozgurbaybas.Services.Adapters.Mernis.UserCheckService;
@@ -18,13 +19,15 @@ public class CandidateServiceImpl implements CandidateService {
     private UserService userService;
     private UserCheckService userCheckService;
     private UserActivationService userActivationService;
+    private ResumeService resumeService;
 
     @Autowired
-    public CandidateServiceImpl(CandidateRepository candidateRepository, UserService userService, UserCheckService userCheckService, UserActivationService userActivationService) {
+    public CandidateServiceImpl(CandidateRepository candidateRepository, UserService userService, UserCheckService userCheckService, UserActivationService userActivationService, ResumeService resumeService) {
         this.candidateRepository = candidateRepository;
         this.userService = userService;
         this.userCheckService = userCheckService;
         this.userActivationService = userActivationService;
+        this.resumeService = resumeService;
     }
 
     @Override
@@ -33,6 +36,7 @@ public class CandidateServiceImpl implements CandidateService {
         validateCandidate(candidate);
         candidate.setActivated(false);
         candidateRepository.save(candidate);
+        resumeService.add(new Resume(candidate));
         return userActivationService.add(new UserActivation(candidate));
     }
     @Override

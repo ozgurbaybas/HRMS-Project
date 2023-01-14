@@ -22,12 +22,12 @@ public class LinkNamesController {
     }
 
     @PostMapping("/add")
-    public Result add(LinkName linkName) {
+    public Result add(@RequestBody LinkName linkName) {
         return linkNameService.add(linkName);
     }
 
     @PostMapping("/update")
-    public Result update(LinkName linkName) {
+    public Result update(@RequestBody LinkName linkName) {
         return linkNameService.update(linkName);
     }
 

@@ -42,4 +42,9 @@ public class ImagesController {
         return imageService.upload(userId, file);
     }
 
+    @GetMapping("/getByUserId")
+    public DataResult<Image> getByUserId(@RequestParam int userId) {
+        return imageService.getById(userId);
+    }
+
 }

@@ -44,6 +44,8 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public Result update(Resume resume) {
 
+        resume = getById(resume.getId()).getData();
+        resume.setCreationDate(LocalDate.now());
         resumeRepository.save(resume);
         return new SuccessResult("Resume updated.");
     }
