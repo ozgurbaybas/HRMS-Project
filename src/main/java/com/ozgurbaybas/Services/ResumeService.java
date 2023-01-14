@@ -12,4 +12,5 @@ public interface ResumeService extends BaseEntityService<Resume> {
     DataResult<Resume> getByCandidateId(int candidateId);
     DataResult<ResumeWithAllRelatedEntitiesDto> getResumeDetailsByCandidateId(int candidateId);
     DataResult<List<ResumeWithAllRelatedEntitiesDto>> getAllResumesDetailsByActivatedCandidate();
+    Result deleteCoverLetterFromResume(int resumeId);
 }

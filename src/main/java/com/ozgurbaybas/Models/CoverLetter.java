@@ -30,4 +30,7 @@ public class CoverLetter {
     @JoinColumn(name = "candidate_id")
     private Candidate candidate;
 
+    @OneToOne(mappedBy = "coverLetter")
+    private Resume resume;
+
 }

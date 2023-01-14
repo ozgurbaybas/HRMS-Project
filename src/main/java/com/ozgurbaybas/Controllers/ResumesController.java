@@ -27,12 +27,12 @@ public class ResumesController {
         return resumeService.add(resume);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody Resume resume) {
         return resumeService.update(resume);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestBody Resume resume) {
         return resumeService.delete(resume);
     }
@@ -60,6 +60,16 @@ public class ResumesController {
     @GetMapping("/getResumeDetailsByCandidateId")
     public DataResult<ResumeWithAllRelatedEntitiesDto> getResumeDetailsByCandidateId(@RequestParam int candidateId) {
         return resumeService.getResumeDetailsByCandidateId(candidateId);
+    }
+
+    @DeleteMapping("/deleteCoverLetterFromResume")
+    public Result deleteCoverLetterFromResume(@RequestParam int resumeId) {
+        return resumeService.deleteCoverLetterFromResume(resumeId);
+    }
+
+    @GetMapping("/getByCandidateId")
+    public DataResult<Resume> getByCandidateId(@RequestParam int candidateId) {
+        return resumeService.getByCandidateId(candidateId);
     }
 
 }

@@ -31,7 +31,7 @@ public class Resume {
     private Candidate candidate;
 
     @JsonIgnore
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "cover_letter_id")
     private CoverLetter coverLetter;
 

@@ -119,4 +119,14 @@ public class ResumeServiceImpl implements ResumeService {
         return new SuccessDataResult<List<ResumeWithAllRelatedEntitiesDto>>(resumes);
     }
 
+    @Override
+    public Result deleteCoverLetterFromResume(int resumeId) {
+
+        Resume resume = getById(resumeId).getData();
+        resume.setCoverLetter(null);
+
+        update(resume);
+        return new SuccessResult("Cover letter removed from resume.");
+    }
+
 }
