@@ -26,12 +26,12 @@ public class SkillsController {
         return skillService.add(skill);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody Skill skill) {
         return skillService.update(skill);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestBody Skill skill) {
         return skillService.delete(skill);
     }

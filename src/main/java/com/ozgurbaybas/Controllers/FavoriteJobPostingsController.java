@@ -26,7 +26,7 @@ public class FavoriteJobPostingsController {
         return favoriteJobPostingService.add(favoriteJobPosting);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestBody FavoriteJobPosting favoriteJobPosting) {
         return favoriteJobPostingService.delete(favoriteJobPosting);
     }

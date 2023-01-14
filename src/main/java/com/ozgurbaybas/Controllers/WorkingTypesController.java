@@ -26,7 +26,7 @@ public class WorkingTypesController {
         return workingTypeService.add(workingType);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody WorkingType workingType) {
         return workingTypeService.update(workingType);
     }

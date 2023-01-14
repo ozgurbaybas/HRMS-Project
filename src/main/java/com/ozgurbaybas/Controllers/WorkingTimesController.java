@@ -26,7 +26,7 @@ public class WorkingTimesController {
         return workingTimeService.add(workingTime);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody WorkingTime workingTime) {
         return workingTimeService.update(workingTime);
     }

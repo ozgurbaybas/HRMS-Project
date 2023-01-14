@@ -26,12 +26,12 @@ public class LinksController {
         return linkService.add(link);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody Link link) {
         return linkService.update(link);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestBody Link link) {
         return linkService.delete(link);
     }

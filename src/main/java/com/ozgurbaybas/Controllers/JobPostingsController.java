@@ -36,12 +36,12 @@ public class JobPostingsController {
         return jobPostingService.getById(id);
     }
 
-    @PostMapping("/confirm")
+    @PutMapping("/confirm")
     public Result confirm(@RequestParam int jobPostingId, @RequestParam int companyStaffId,	@RequestParam boolean isConfirmed) {
         return jobPostingService.confirm(jobPostingId, companyStaffId, isConfirmed);
     }
 
-    @PostMapping("/makeActiveOrPassive")
+    @PutMapping("/makeActiveOrPassive")
     public Result makeActiveOrPassive(@RequestParam int id, @RequestParam boolean isActive) {
         return jobPostingService.makeActiveOrPassive(id, isActive);
     }

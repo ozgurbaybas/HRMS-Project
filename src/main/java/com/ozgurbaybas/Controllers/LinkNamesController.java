@@ -26,7 +26,7 @@ public class LinkNamesController {
         return linkNameService.add(linkName);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody LinkName linkName) {
         return linkNameService.update(linkName);
     }

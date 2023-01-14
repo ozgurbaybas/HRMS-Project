@@ -27,7 +27,7 @@ public class JobTitlesController {
         return jobTitleService.add(jobTitle);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody JobTitle jobTitle) {
         return jobTitleService.update(jobTitle);
     }

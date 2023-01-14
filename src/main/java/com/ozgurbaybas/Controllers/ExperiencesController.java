@@ -26,12 +26,12 @@ public class ExperiencesController {
         return experienceService.add(experience);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody Experience experience) {
         return experienceService.update(experience);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestBody Experience experience) {
         return experienceService.delete(experience);
     }

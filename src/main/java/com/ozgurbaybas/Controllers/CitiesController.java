@@ -26,7 +26,7 @@ public class CitiesController {
         return cityService.add(city);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody City city) {
         return cityService.update(city);
     }

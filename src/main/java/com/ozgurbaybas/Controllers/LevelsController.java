@@ -26,7 +26,7 @@ public class LevelsController {
         return levelService.add(level);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody Level level) {
         return levelService.update(level);
     }

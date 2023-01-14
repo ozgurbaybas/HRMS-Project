@@ -26,7 +26,7 @@ public class CompanyStaffsController {
         return companyStaffService.add(companyStaff);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody CompanyStaff companyStaff) {
         return companyStaffService.update(companyStaff);
     }

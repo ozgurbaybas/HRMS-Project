@@ -26,12 +26,12 @@ public class LanguageLevelsController {
         return languageLevelService.add(languageLevel);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody LanguageLevel languageLevel) {
         return languageLevelService.update(languageLevel);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestBody LanguageLevel languageLevel) {
         return languageLevelService.delete(languageLevel);
     }

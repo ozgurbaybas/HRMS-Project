@@ -22,7 +22,7 @@ public class ImagesController {
         this.imageService = imageService;
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestBody Image image) {
         return imageService.delete(image);
     }

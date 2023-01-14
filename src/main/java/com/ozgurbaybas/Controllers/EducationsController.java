@@ -26,12 +26,12 @@ public class EducationsController {
         return educationService.add(education);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result update(@RequestBody Education education) {
         return educationService.update(education);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestBody Education education) {
         return educationService.delete(education);
     }
