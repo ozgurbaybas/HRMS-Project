@@ -68,8 +68,8 @@ public class UserActivationServiceImpl implements UserActivationService {
 
 
     @Override
-    public DataResult<UserActivation> getByUser(Employer user) {
-        return new SuccessDataResult<UserActivation>(userActivationRepository.getByUser(user));
+    public DataResult<UserActivation> getByUserId(int userId) {
+        return new SuccessDataResult<UserActivation>(userActivationRepository.getByUser_Id(userId));
     }
 
     private String generateCode() {

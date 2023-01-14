@@ -14,5 +14,6 @@ public interface UserActivationService {
     DataResult<List<UserActivation>> getAll();
     DataResult<UserActivation> getById(int id);
     DataResult<UserActivation> getByCode(String code);
-    DataResult<UserActivation> getByUser(Employer user);
+    //DataResult<UserActivation> getByUser(Employer user);
+    DataResult<UserActivation> getByUserId(int userId);
 }

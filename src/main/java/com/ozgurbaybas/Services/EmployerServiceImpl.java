@@ -103,7 +103,7 @@ public class EmployerServiceImpl implements EmployerService {
         int numberOfUserConfirmations = userConfirmationService.getAllByUserId(employerId).getData().size();
 
         if (!isConfirmed && numberOfUserConfirmations == 0) {
-            userActivationService.delete(userActivationService.getByUser(employer).getData());
+            userActivationService.delete(userActivationService.getByUserId(employer.getId()).getData());
             delete(employer);
             return new ErrorResult("Employer not approved.");
         }

@@ -31,4 +31,9 @@ public class UserActivationsController {
         return userActivationService.getById(id);
     }
 
+    @GetMapping("/getByUserId")
+    public DataResult<UserActivation> getByUserId(@RequestParam int userId) {
+        return userActivationService.getByUserId(userId);
+    }
+
 }

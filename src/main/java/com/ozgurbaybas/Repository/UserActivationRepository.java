@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserActivationRepository extends JpaRepository<UserActivation, Integer> {
 
     UserActivation getByCode(String code);
-    UserActivation getByUser(User user);
+    UserActivation getByUser_Id(int userId);
 
 }
