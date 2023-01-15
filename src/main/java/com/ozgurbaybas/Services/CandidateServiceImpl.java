@@ -47,8 +47,8 @@ public class CandidateServiceImpl implements CandidateService {
         return new SuccessResult("Job seeker updated.");
     }
     @Override
-    public Result delete(Candidate candidate) {
-        candidateRepository.delete(candidate);
+    public Result delete(int id) {
+        candidateRepository.deleteById(id);
         return new SuccessResult("Job seeker deleted.");
     }
     @Override

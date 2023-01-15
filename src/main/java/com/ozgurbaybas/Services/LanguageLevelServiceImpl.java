@@ -34,8 +34,8 @@ public class LanguageLevelServiceImpl implements LanguageLevelService {
     }
 
     @Override
-    public Result delete(LanguageLevel languageLevel) {
-        languageLevelRepository.delete(languageLevel);
+    public Result delete(int id) {
+        languageLevelRepository.deleteById(id);
         return new SuccessResult("Language level deleted.");
     }
 

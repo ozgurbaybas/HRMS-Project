@@ -34,8 +34,8 @@ public class WorkingTimeServiceImpl implements WorkingTimeService {
     }
 
     @Override
-    public Result delete(WorkingTime workingTime) {
-        workingTimeRepository.delete(workingTime);
+    public Result delete(int id) {
+        workingTimeRepository.deleteById(id);
         return new SuccessResult();
     }
 

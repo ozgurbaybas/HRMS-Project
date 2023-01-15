@@ -10,7 +10,7 @@ public interface UserConfirmationService {
 
     Result add(UserConfirmation userConfirmation);
     Result update(UserConfirmation userConfirmation);
-    Result delete(UserConfirmation userConfirmation);
+    Result delete(int id);
     DataResult<List<UserConfirmation>> getAll();
     DataResult<UserConfirmation> getById(int id);
     DataResult<List<UserConfirmation>> getAllByUserId(int userId);

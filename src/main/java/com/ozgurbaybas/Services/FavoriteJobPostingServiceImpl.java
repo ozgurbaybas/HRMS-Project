@@ -37,8 +37,8 @@ public class FavoriteJobPostingServiceImpl implements FavoriteJobPostingService 
     }
 
     @Override
-    public Result delete(FavoriteJobPosting favoriteJobPosting) {
-        favoriteJobPostingRepository.delete(favoriteJobPosting);
+    public Result delete(int id) {
+        favoriteJobPostingRepository.deleteById(id);
         return new SuccessResult();
     }
 

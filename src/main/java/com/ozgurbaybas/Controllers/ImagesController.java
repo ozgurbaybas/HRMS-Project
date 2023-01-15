@@ -23,8 +23,8 @@ public class ImagesController {
     }
 
     @DeleteMapping("/delete")
-    public Result delete(@RequestBody Image image) {
-        return imageService.delete(image);
+    public Result delete(@RequestParam int id) {
+        return imageService.delete(id);
     }
 
     @GetMapping("/getAll")

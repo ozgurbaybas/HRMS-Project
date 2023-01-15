@@ -37,9 +37,9 @@ public class EducationServiceImpl implements EducationService {
     }
 
     @Override
-    public Result delete(Education education) {
+    public Result delete(int id) {
 
-        educationRepository.delete(education);
+        educationRepository.deleteById(id);
         return new SuccessResult("The tutorial has been deleted.");
     }
 

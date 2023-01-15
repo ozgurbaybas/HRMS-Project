@@ -36,8 +36,8 @@ public class ExperienceServiceImpl implements ExperienceService {
     }
 
     @Override
-    public Result delete(Experience experience) {
-        experienceRepository.delete(experience);
+    public Result delete(int id) {
+        experienceRepository.deleteById(id);
         return new SuccessResult("Work experience deleted.");
     }
 
@@ -55,7 +55,6 @@ public class ExperienceServiceImpl implements ExperienceService {
     public DataResult<List<Experience>> getAllByResumeId(int resumeId) {
         return new SuccessDataResult<List<Experience>>(experienceRepository.getByResume_Id(resumeId));
     }
-
 
     @Override
     public DataResult<List<Experience>> getAllByResumeIdSortedByTerminationDate(int resumeId) {

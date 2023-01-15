@@ -10,7 +10,7 @@ public interface CityService {
 
     Result add(City city);
     Result update(City city);
-    Result delete(City city);
+    Result delete(int id);
     DataResult<List<City>> getAll();
     DataResult<City> getById(int id);
 

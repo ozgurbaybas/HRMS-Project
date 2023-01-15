@@ -10,7 +10,7 @@ public interface CompanyStaffService {
 
     Result add(CompanyStaff companyStaff);
     Result update(CompanyStaff companyStaff);
-    Result delete(CompanyStaff companyStaff);
+    Result delete(int id);
     DataResult<List<CompanyStaff>> getAll();
     DataResult<CompanyStaff> getById(int id);
 

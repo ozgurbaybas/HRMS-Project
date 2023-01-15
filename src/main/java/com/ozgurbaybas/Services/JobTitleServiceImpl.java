@@ -41,13 +41,13 @@ public class JobTitleServiceImpl implements JobTitleService {
     }
 
     @Override
-    public Result delete(JobTitle jobTitle) {
-        jobTitleRepository.delete(jobTitle);
+    public Result delete(int id) {
+        jobTitleRepository.deleteById(id);
         return new SuccessResult("The job position has been deleted.");
     }
 
     @Override
-    public DataResult<JobTitle> getById(Long id) {
+    public DataResult<JobTitle> getById(int id) {
         return new SuccessDataResult<JobTitle>(jobTitleRepository.getById(id));
     }
 

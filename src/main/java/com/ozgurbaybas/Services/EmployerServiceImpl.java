@@ -63,9 +63,9 @@ public class EmployerServiceImpl implements EmployerService {
     }
 
     @Override
-    public Result delete(Employer employer) {
+    public Result delete(int id) {
 
-        employerRepository.delete(employer);
+        employerRepository.deleteById(id);
         return new SuccessResult("Employer deleted.");
     }
 
@@ -104,7 +104,7 @@ public class EmployerServiceImpl implements EmployerService {
 
         if (!isConfirmed && numberOfUserConfirmations == 0) {
             userActivationService.delete(userActivationService.getByUserId(employer.getId()).getData());
-            delete(employer);
+            delete(employer.getId());
             return new ErrorResult("Employer not approved.");
         }
 
@@ -127,7 +127,7 @@ public class EmployerServiceImpl implements EmployerService {
         employer.setConfirmed(isConfirmed);
 
         employerRepository.save(employer);
-        updatedEmployerService.delete(updatedEmployer);
+        updatedEmployerService.delete(updatedEmployer.getId());
         userConfirmationService.add(new UserConfirmation(employer, companyStaff));
         return new SuccessResult("Employer approved.");
     }

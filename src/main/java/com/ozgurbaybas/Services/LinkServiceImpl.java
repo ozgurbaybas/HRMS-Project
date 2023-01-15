@@ -25,21 +25,21 @@ public class LinkServiceImpl implements LinkService {
     public Result add(Link link) {
 
         linkRepository.save(link);
-        return new SuccessResult("Link eklendi.");
+        return new SuccessResult("Link added.");
     }
 
     @Override
     public Result update(Link link) {
 
         linkRepository.save(link);
-        return new SuccessResult("Link güncellendi.");
+        return new SuccessResult("The link has been updated.");
     }
 
     @Override
-    public Result delete(Link link) {
+    public Result delete(int id) {
 
-        linkRepository.delete(link);
-        return new SuccessResult("Link silindi.");
+        linkRepository.deleteById(id);
+        return new SuccessResult("The link has been deleted.");
     }
 
     @Override

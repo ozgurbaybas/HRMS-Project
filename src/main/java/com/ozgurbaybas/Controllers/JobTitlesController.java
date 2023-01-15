@@ -38,7 +38,7 @@ public class JobTitlesController {
     }
 
     @GetMapping("/getById")
-    public DataResult<JobTitle> getById(@RequestParam Long id) {
+    public DataResult<JobTitle> getById(@RequestParam int id) {
         return jobTitleService.getById(id);
     }
 }

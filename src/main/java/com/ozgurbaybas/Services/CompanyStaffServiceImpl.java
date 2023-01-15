@@ -25,21 +25,21 @@ public class CompanyStaffServiceImpl implements CompanyStaffService {
     public Result add(CompanyStaff companyStaff) {
 
         companyStaffRepository.save(companyStaff);
-        return new SuccessResult("Şirket personeli eklendi.");
+        return new SuccessResult("Company personnel added.");
     }
 
     @Override
     public Result update(CompanyStaff companyStaff) {
 
         companyStaffRepository.save(companyStaff);
-        return new SuccessResult("Şirket personeli güncellendi.");
+        return new SuccessResult("Company staff updated.");
     }
 
     @Override
-    public Result delete(CompanyStaff companyStaff) {
+    public Result delete(int id) {
 
-        companyStaffRepository.delete(companyStaff);
-        return new SuccessResult("Şirket personeli silindi.");
+        companyStaffRepository.deleteById(id);
+        return new SuccessResult("Company personnel deleted.");
     }
 
     @Override

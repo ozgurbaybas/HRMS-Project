@@ -37,9 +37,9 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public Result delete(Language language) {
+    public Result delete(int id) {
 
-        this.languageRepository.delete(language);
+        this.languageRepository.deleteById(id);
         return new SuccessResult("Language deleted.");
     }
 

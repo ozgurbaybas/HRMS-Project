@@ -34,8 +34,8 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public Result delete(Skill skill) {
-        skillRepository.delete(skill);
+    public Result delete(int id) {
+        skillRepository.deleteById(id);
         return new SuccessResult("Skill delete.");
     }
 

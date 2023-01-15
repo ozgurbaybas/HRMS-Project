@@ -9,7 +9,7 @@ import java.util.List;
 public interface EmployerService {
     Result add(Employer employer);
     Result update(Employer employer);
-    Result delete(Employer employer);
+    Result delete(int id);
     DataResult<List<Employer>> getAll();
     DataResult<Employer> getById(int id);
     Result activate(String code);

@@ -23,22 +23,19 @@ public class CoverLetterServiceImpl implements CoverLetterService {
 
     @Override
     public Result add(CoverLetter coverLetter) {
-
         coverLetterRepository.save(coverLetter);
         return new SuccessResult("Added cover letter.");
     }
 
     @Override
     public Result update(CoverLetter coverLetter) {
-
         coverLetterRepository.save(coverLetter);
         return new SuccessResult("The cover letter has been updated.");
     }
 
     @Override
-    public Result delete(CoverLetter coverLetter) {
-
-        coverLetterRepository.delete(coverLetter);
+    public Result delete(int id) {
+        coverLetterRepository.deleteById(id);
         return new SuccessResult("The cover letter has been deleted.");
     }
 
@@ -56,5 +53,4 @@ public class CoverLetterServiceImpl implements CoverLetterService {
     public DataResult<List<CoverLetter>> getAllByCandidateId(int candidateId) {
         return new SuccessDataResult<List<CoverLetter>>(coverLetterRepository.getByCandidate_Id(candidateId));
     }
-
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface CandidateService {
     Result add(Candidate candidate);
     Result update(Candidate candidate);
-    Result delete(Candidate candidate);
+    Result delete(int id);
     DataResult<List<Candidate>> getAll();
     DataResult<Candidate> getById(int id);
     Result activate(String code);

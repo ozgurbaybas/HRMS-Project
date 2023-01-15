@@ -34,8 +34,8 @@ public class LinkNameServiceImpl implements LinkNameService {
     }
 
     @Override
-    public Result delete(LinkName linkName) {
-        linkNameRepository.delete(linkName);
+    public Result delete(int id) {
+        linkNameRepository.deleteById(id);
         return new SuccessResult("The connection name has been deleted.");
     }
 

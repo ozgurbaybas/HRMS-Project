@@ -46,8 +46,8 @@ public class JobPostingServiceImpl implements JobPostingService {
     }
 
     @Override
-    public Result delete(JobPosting jobPosting) {
-        jobPostingRepository.delete(jobPosting);
+    public Result delete(int id) {
+        jobPostingRepository.deleteById(id);
         return new SuccessResult("Job posting deleted.");
     }
 
@@ -66,7 +66,7 @@ public class JobPostingServiceImpl implements JobPostingService {
         JobPosting jobPosting = getById(jobPostingId).getData();
         CompanyStaff companyStaff = companyStaffService.getById(companyStaffId).getData();
         if (!isConfirmed) {
-            delete(jobPosting);
+            delete(jobPosting.getId());
             return new ErrorResult("The job posting was not approved.");
         }
 

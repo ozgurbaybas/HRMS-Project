@@ -51,9 +51,9 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public Result delete(Resume resume) {
+    public Result delete(int id) {
 
-        resumeRepository.delete(resume);
+        resumeRepository.deleteById(id);
         return new SuccessResult("Resume deleted.");
     }
 

@@ -34,8 +34,8 @@ public class LevelServiceImpl implements LevelService {
     }
 
     @Override
-    public Result delete(Level level) {
-        levelRepository.delete(level);
+    public Result delete(int id) {
+        levelRepository.deleteById(id);
         return new SuccessResult();
     }
 

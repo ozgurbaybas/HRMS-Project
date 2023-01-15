@@ -45,9 +45,9 @@ public class UserActivationServiceImpl implements UserActivationService {
     }
 
     @Override
-    public Result delete(UserActivation userActivation) {
+    public Result delete(int id) {
 
-        userActivationRepository.delete(userActivation);
+        userActivationRepository.deleteById(id);
         return new SuccessResult();
     }
 

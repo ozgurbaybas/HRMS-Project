@@ -36,9 +36,9 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public Result delete(City city) {
+    public Result delete(int id) {
 
-        cityRepository.delete(city);
+        cityRepository.deleteById(id);
         return new SuccessResult("The city has been deleted.");
     }
 

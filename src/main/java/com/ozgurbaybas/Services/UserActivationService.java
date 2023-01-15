@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserActivationService {
     Result add(UserActivation userActivation);
     Result update(UserActivation userActivation);
-    Result delete(UserActivation userActivation);
+    Result delete(int id);
     DataResult<List<UserActivation>> getAll();
     DataResult<UserActivation> getById(int id);
     DataResult<UserActivation> getByCode(String code);

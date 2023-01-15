@@ -34,8 +34,8 @@ public class WorkingTypeServiceImpl implements WorkingTypeService {
     }
 
     @Override
-    public Result delete(WorkingType workingType) {
-        workingTypeRepository.delete(workingType);
+    public Result delete(int id) {
+        workingTypeRepository.deleteById(id);
         return new SuccessResult();
     }
 

@@ -37,9 +37,9 @@ public class UserConfirmationServiceImpl implements UserConfirmationService {
     }
 
     @Override
-    public Result delete(UserConfirmation userConfirmation) {
+    public Result delete(int id) {
 
-        userConfirmationRepository.delete(userConfirmation);
+        userConfirmationRepository.deleteById(id);
         return new SuccessResult();
     }
 

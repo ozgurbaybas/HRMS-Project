@@ -44,7 +44,9 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Result delete(Image image) {
+    public Result delete(int id) {
+
+        Image image = getById(id).getData();
 
         String[] splitImageUrlArray = image.getUrl().split("/");
         int indexOfExtension = splitImageUrlArray[splitImageUrlArray.length - 1].indexOf(".");
@@ -52,7 +54,7 @@ public class ImageServiceImpl implements ImageService {
 
         cloudStorageService.delete(publicIdOfImage);
 
-        imageRepository.delete(image);
+        imageRepository.deleteById(id);
         return new SuccessResult("Image delete.");
     }
 

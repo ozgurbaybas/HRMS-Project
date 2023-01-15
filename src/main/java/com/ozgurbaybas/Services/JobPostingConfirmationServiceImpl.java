@@ -40,8 +40,8 @@ public class JobPostingConfirmationServiceImpl implements JobPostingConfirmation
     }
 
     @Override
-    public Result delete(JobPostingConfirmation jobPostingConfirmation) {
-        jobPostingConfirmationRepository.delete(jobPostingConfirmation);
+    public Result delete(int id) {
+        jobPostingConfirmationRepository.deleteById(id);
         return new SuccessResult();
     }
 

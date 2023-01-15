@@ -37,9 +37,9 @@ public class UpdatedEmployerServiceImpl implements UpdatedEmployerService {
     }
 
     @Override
-    public Result delete(UpdatedEmployer updatedEmployer) {
+    public Result delete(int id) {
 
-        updatedEmployerRepository.delete(updatedEmployer);
+        updatedEmployerRepository.deleteById(id);
         return new SuccessResult("The updated employer has been deleted.");
     }
 
