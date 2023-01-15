@@ -21,9 +21,7 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 @CrossOrigin
 public class AuthController {
-
     private AuthService authService;
-
     @Autowired
     public AuthController(AuthService authService) {
         this.authService = authService;
@@ -38,25 +36,18 @@ public class AuthController {
     public ResponseEntity<?> registerCandidate(@Valid @RequestBody Candidate candidate, String confirmPassword) {
         return ResponseEntity.ok(authService.resgisterCandidate(candidate, confirmPassword));
     }
-
     @PostMapping("/registerEmployer")
     public ResponseEntity<?> registerEmployer(@Valid @RequestBody Employer employer, String confirmPassword) {
         return ResponseEntity.ok(authService.resgisterEmployer(employer, confirmPassword));
     }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {
-
         Map<String, String> validationErrors = new HashMap<String, String>();
-
         for (FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
             validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-
         ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors);
-
         return errors;
     }
-
 }

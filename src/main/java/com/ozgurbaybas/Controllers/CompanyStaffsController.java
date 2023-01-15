@@ -21,11 +21,6 @@ public class CompanyStaffsController {
         this.companyStaffService = companyStaffService;
     }
 
-    @PostMapping("/add")
-    public Result add(@RequestBody CompanyStaff companyStaff) {
-        return companyStaffService.add(companyStaff);
-    }
-
     @PutMapping("/update")
     public Result update(@RequestBody CompanyStaff companyStaff) {
         return companyStaffService.update(companyStaff);

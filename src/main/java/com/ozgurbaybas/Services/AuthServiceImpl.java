@@ -27,51 +27,31 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Result resgisterCompanyStaff(CompanyStaff user, String confirmPassword) {
 
-        if (validateUser(user, confirmPassword) != null) {
-            return validateUser(user, confirmPassword);
-        }
-
+        validateUser(user, confirmPassword);
         return companyStaffService.add(user);
     }
 
     @Override
     public Result resgisterCandidate(Candidate user, String confirmPassword) {
-
-        if (validateUser(user, confirmPassword) != null) {
-            return validateUser(user, confirmPassword);
-        }
-
+        validateUser(user, confirmPassword);
         return candidateService.add(user);
     }
-
     @Override
     public Result resgisterEmployer(Employer user, String confirmPassword) {
-
-        if (validateUser(user, confirmPassword) != null) {
-            return validateUser(user, confirmPassword);
-        }
-
+        validateUser(user, confirmPassword);
         return employerService.add(user);
     }
-
     private boolean checkIfPasswordsMatch(String password, String confirmPassword) {
-
         boolean result = false;
-
         if (password.equals(confirmPassword)) {
             result = true;
         }
-
         return result;
     }
-
     private Result validateUser(User user, String confirmPassword) {
-
         if (!checkIfPasswordsMatch(user.getPassword(), confirmPassword)) {
             return new ErrorResult("Password matching did not occur. Please check and try again.");
         }
-
         return null;
     }
-
 }
