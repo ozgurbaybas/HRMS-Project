@@ -1,6 +1,6 @@
 package com.ozgurbaybas.Services;
 
-
+import org.springframework.data.domain.Sort;
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Core.Utilities.Result.SuccessDataResult;
@@ -45,7 +45,8 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public DataResult<List<Language>> getAll() {
-        return new SuccessDataResult<List<Language>>(languageRepository.findAll());
+        Sort sort = Sort.by(Sort.Direction.ASC, "language");
+        return new SuccessDataResult<List<Language>>(languageRepository.findAll(sort));
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.ozgurbaybas.Models.WorkingType;
 import com.ozgurbaybas.Repository.WorkingTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -41,7 +42,9 @@ public class WorkingTypeServiceImpl implements WorkingTypeService {
 
     @Override
     public DataResult<List<WorkingType>> getAll() {
-        return new SuccessDataResult<List<WorkingType>>(workingTypeRepository.findAll());
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "type");
+        return new SuccessDataResult<List<WorkingType>>(workingTypeRepository.findAll(sort));
     }
 
     @Override

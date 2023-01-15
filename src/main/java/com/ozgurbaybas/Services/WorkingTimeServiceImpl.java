@@ -8,6 +8,7 @@ import com.ozgurbaybas.Models.WorkingTime;
 import com.ozgurbaybas.Repository.WorkingTimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -41,7 +42,10 @@ public class WorkingTimeServiceImpl implements WorkingTimeService {
 
     @Override
     public DataResult<List<WorkingTime>> getAll() {
-        return new SuccessDataResult<List<WorkingTime>>(workingTimeRepository.findAll());
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "time");
+
+        return new SuccessDataResult<List<WorkingTime>>(workingTimeRepository.findAll(sort));
     }
 
     @Override

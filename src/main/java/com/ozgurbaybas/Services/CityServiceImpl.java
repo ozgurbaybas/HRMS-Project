@@ -8,6 +8,7 @@ import com.ozgurbaybas.Models.City;
 import com.ozgurbaybas.Repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -44,7 +45,8 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public DataResult<List<City>> getAll() {
-        return new SuccessDataResult<List<City>>(cityRepository.findAll());
+        Sort sort = Sort.by(Sort.Direction.ASC, "city");
+        return new SuccessDataResult<List<City>>(cityRepository.findAll(sort));
     }
 
     @Override

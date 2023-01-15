@@ -5,6 +5,7 @@ import com.ozgurbaybas.Models.JobTitle;
 import com.ozgurbaybas.Repository.JobTitleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -21,7 +22,9 @@ public class JobTitleServiceImpl implements JobTitleService {
 
     @Override
     public DataResult<List<JobTitle>> getAll() {
-        return new SuccessDataResult<List<JobTitle>>(jobTitleRepository.findAll());
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "title");
+        return new SuccessDataResult<List<JobTitle>>(jobTitleRepository.findAll(sort));
     }
 
     @Override

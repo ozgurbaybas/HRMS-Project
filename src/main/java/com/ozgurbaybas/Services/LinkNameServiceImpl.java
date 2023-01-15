@@ -8,6 +8,7 @@ import com.ozgurbaybas.Models.LinkName;
 import com.ozgurbaybas.Repository.LinkNameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -41,7 +42,9 @@ public class LinkNameServiceImpl implements LinkNameService {
 
     @Override
     public DataResult<List<LinkName>> getAll() {
-        return new SuccessDataResult<List<LinkName>>(linkNameRepository.findAll());
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "name");
+        return new SuccessDataResult<List<LinkName>>(linkNameRepository.findAll(sort));
     }
 
     @Override

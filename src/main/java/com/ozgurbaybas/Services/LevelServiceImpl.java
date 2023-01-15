@@ -8,6 +8,7 @@ import com.ozgurbaybas.Models.Level;
 import com.ozgurbaybas.Repository.LevelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -41,7 +42,8 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public DataResult<List<Level>> getAll() {
-        return new SuccessDataResult<List<Level>>(levelRepository.findAll());
+        Sort sort = Sort.by(Sort.Direction.ASC, "level");
+        return new SuccessDataResult<List<Level>>(levelRepository.findAll(sort));
     }
 
     @Override
