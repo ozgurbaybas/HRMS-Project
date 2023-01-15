@@ -1,5 +1,6 @@
 package com.ozgurbaybas.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import com.ozgurbaybas.Core.Entities.User;
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -26,10 +28,12 @@ public class Employer extends User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "is_activated")
-    private boolean isActivated;
+    @JsonIgnore
+    @OneToOne(mappedBy = "user")
+    private UserActivation userActivation;
 
-    @Column(name = "is_confirmed")
-    private boolean isConfirmed;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<UserConfirmation> userConfirmations;
 
 }

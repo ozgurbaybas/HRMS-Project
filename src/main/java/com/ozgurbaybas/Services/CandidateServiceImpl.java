@@ -34,7 +34,6 @@ public class CandidateServiceImpl implements CandidateService {
     public Result add(Candidate candidate) {
 
         validateCandidate(candidate);
-        candidate.setActivated(false);
         candidateRepository.save(candidate);
         resumeService.add(new Resume(candidate));
         return userActivationService.add(new UserActivation(candidate));
@@ -68,7 +67,7 @@ public class CandidateServiceImpl implements CandidateService {
             return new ErrorResult("You entered an invalid code.");
         }
         Candidate candidate = getById(userActivation.getUser().getId()).getData();
-        candidate.setActivated(true);
+        userActivation.setActivated(true);
         userActivation.setIsActivatedDate(LocalDate.now());
 
         candidateRepository.save(candidate);
@@ -78,7 +77,7 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public DataResult<List<Candidate>> getAllByIsActivated(boolean isActivated) {
-        return new SuccessDataResult<List<Candidate>>(candidateRepository.getByIsActivated(isActivated));
+        return new SuccessDataResult<List<Candidate>>(candidateRepository.getByUserActivation_IsActivated(isActivated));
     }
 
     @Override

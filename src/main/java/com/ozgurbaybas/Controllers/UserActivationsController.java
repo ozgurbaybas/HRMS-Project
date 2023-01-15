@@ -36,4 +36,9 @@ public class UserActivationsController {
         return userActivationService.getByUserId(userId);
     }
 
+    @GetMapping("/getAllByIsActivated")
+    public DataResult<List<UserActivation>> getAllByIsActivated(@RequestParam boolean isActivated) {
+        return userActivationService.getAllByIsActivated(isActivated);
+    }
+
 }

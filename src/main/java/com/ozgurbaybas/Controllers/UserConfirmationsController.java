@@ -13,26 +13,28 @@ import java.util.List;
 @RequestMapping("/api/userConfirmations")
 @CrossOrigin
 public class UserConfirmationsController {
-
     private UserConfirmationService userConfirmationService;
-
     @Autowired
     public UserConfirmationsController(UserConfirmationService userConfirmationService) {
         this.userConfirmationService = userConfirmationService;
     }
-
     @GetMapping("/getAll")
     public DataResult<List<UserConfirmation>> getAll() {
         return userConfirmationService.getAll();
     }
-
     @GetMapping("/getById")
     public DataResult<UserConfirmation> getById(@RequestParam int id) {
         return userConfirmationService.getById(id);
     }
 
     @GetMapping("/getAllByUserId")
-    DataResult<List<UserConfirmation>> getAllByUserId(@RequestParam int userId) {
+    public DataResult<List<UserConfirmation>> getAllByUserId(@RequestParam int userId) {
         return userConfirmationService.getAllByUserId(userId);
     }
+
+    @GetMapping("/getAllByIsConfirmedAndUserConfirmationTypeId")
+    public DataResult<List<UserConfirmation>> getAllByIsConfirmedAndUserConfirmationTypeId(@RequestParam boolean isConfirmed, @RequestParam int userConfirmationTypeId) {
+        return userConfirmationService.getAllByIsConfirmedAndUserConfirmationTypeId(isConfirmed , userConfirmationTypeId);
+    }
+
 }

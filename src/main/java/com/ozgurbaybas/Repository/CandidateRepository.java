@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CandidateRepository extends JpaRepository<Candidate, Integer> {
     Candidate getByIdentityNumber(String identityNumber);
-    List<Candidate> getByIsActivated(boolean isActivated);
+    List<Candidate> getByUserActivation_IsActivated(boolean isActivated);
 }

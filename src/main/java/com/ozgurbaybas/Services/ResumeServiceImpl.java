@@ -111,7 +111,7 @@ public class ResumeServiceImpl implements ResumeService {
         List<ResumeWithAllRelatedEntitiesDto> resumes = new ArrayList<ResumeWithAllRelatedEntitiesDto>();
 
         for (Resume resume : getAll().getData()) {
-            if (resume.getCandidate().isActivated() == true ) {
+            if (resume.getCandidate().getUserActivation().isActivated() == true ) {
                 resumes.add(getResumeDetailsByCandidateId(resume.getCandidate().getId()).getData());
             }
         };

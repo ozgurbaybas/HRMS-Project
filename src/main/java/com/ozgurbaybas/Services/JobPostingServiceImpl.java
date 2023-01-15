@@ -4,6 +4,7 @@ import com.ozgurbaybas.Core.Utilities.Result.*;
 import com.ozgurbaybas.Models.CompanyStaff;
 import com.ozgurbaybas.Models.JobPosting;
 import com.ozgurbaybas.Models.JobPostingConfirmation;
+import com.ozgurbaybas.Models.JobPostingConfirmationType;
 import com.ozgurbaybas.Repository.JobPostingRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,18 +24,20 @@ public class JobPostingServiceImpl implements JobPostingService {
     private JobPostingRepository jobPostingRepository;
     private JobPostingConfirmationService jobPostingConfirmationService;
     private CompanyStaffService companyStaffService;
+    private JobPostingConfirmationTypeService jobPostingConfirmationTypeService;
 
-    public JobPostingServiceImpl(JobPostingRepository jobPostingRepository, JobPostingConfirmationService jobPostingConfirmationService, CompanyStaffService companyStaffService) {
+    public JobPostingServiceImpl(JobPostingRepository jobPostingRepository, JobPostingConfirmationService jobPostingConfirmationService, CompanyStaffService companyStaffService, JobPostingConfirmationTypeService jobPostingConfirmationTypeService) {
         this.jobPostingRepository = jobPostingRepository;
         this.jobPostingConfirmationService = jobPostingConfirmationService;
         this.companyStaffService = companyStaffService;
+        this.jobPostingConfirmationTypeService = jobPostingConfirmationTypeService;
     }
 
     @Override
     public Result add(JobPosting jobPosting) {
         jobPosting.setPostingDate(LocalDateTime.now());
         jobPosting.setActive(false);
-        jobPosting.setConfirmed(false);
+
         jobPostingRepository.save(jobPosting);
         return new SuccessResult("The job posting is in the approval phase.");
     }
@@ -62,19 +65,21 @@ public class JobPostingServiceImpl implements JobPostingService {
     }
 
     @Override
-    public Result confirm(int jobPostingId, int companyStaffId, boolean isConfirmed) {
+    public Result confirm(int jobPostingId, int companyStaffId, int jobPostingConfirmationTypeId, boolean isConfirmed) {
+
         JobPosting jobPosting = getById(jobPostingId).getData();
         CompanyStaff companyStaff = companyStaffService.getById(companyStaffId).getData();
+        JobPostingConfirmationType jobPostingConfirmationType = jobPostingConfirmationTypeService.getById(jobPostingConfirmationTypeId).getData();
+
         if (!isConfirmed) {
             delete(jobPosting.getId());
             return new ErrorResult("The job posting was not approved.");
         }
 
         jobPosting.setActive(true);
-        jobPosting.setConfirmed(isConfirmed);
 
         jobPostingRepository.save(jobPosting);
-        jobPostingConfirmationService.add(new JobPostingConfirmation(jobPosting, companyStaff));
+        jobPostingConfirmationService.add(new JobPostingConfirmation(jobPosting, companyStaff, jobPostingConfirmationType, isConfirmed));
         return new SuccessResult("Job posting approved.");
     }
 

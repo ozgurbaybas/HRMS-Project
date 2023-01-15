@@ -1,15 +1,14 @@
 package com.ozgurbaybas.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import com.ozgurbaybas.Core.Entities.User;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
@@ -33,6 +32,7 @@ public class Candidate extends User {
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Column(name = "is_activated")
-    private boolean isActivated;
+    @JsonIgnore
+    @OneToOne(mappedBy = "user")
+    private UserActivation userActivation;
 }

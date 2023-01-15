@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface UserConfirmationRepository extends JpaRepository<UserConfirmation, Integer> {
     List<UserConfirmation> getByUser_Id(int userId);
+    List<UserConfirmation> getByIsConfirmedAndUserConfirmationType_Id(boolean isConfirmed, int userConfirmationTypeId);
 }

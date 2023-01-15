@@ -31,14 +31,12 @@ public class UserConfirmationServiceImpl implements UserConfirmationService {
 
     @Override
     public Result update(UserConfirmation userConfirmation) {
-
         userConfirmationRepository.save(userConfirmation);
         return new SuccessResult();
     }
 
     @Override
     public Result delete(int id) {
-
         userConfirmationRepository.deleteById(id);
         return new SuccessResult();
     }
@@ -56,5 +54,10 @@ public class UserConfirmationServiceImpl implements UserConfirmationService {
     @Override
     public DataResult<List<UserConfirmation>> getAllByUserId(int userId) {
         return new SuccessDataResult<List<UserConfirmation>>(userConfirmationRepository.getByUser_Id(userId));
+    }
+
+    @Override
+    public DataResult<List<UserConfirmation>> getAllByIsConfirmedAndUserConfirmationTypeId(boolean isConfirmed, int userConfirmationTypeId) {
+        return new SuccessDataResult<List<UserConfirmation>>(userConfirmationRepository.getByIsConfirmedAndUserConfirmationType_Id(isConfirmed, userConfirmationTypeId));
     }
 }

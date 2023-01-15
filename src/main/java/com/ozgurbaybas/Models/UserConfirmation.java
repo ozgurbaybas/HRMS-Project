@@ -22,6 +22,9 @@ public class UserConfirmation {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "is_confirmed")
+    private boolean isConfirmed;
+
     @Column(name = "is_confirmed_date")
     private LocalDate isConfirmedDate;
 
@@ -33,9 +36,15 @@ public class UserConfirmation {
     @JoinColumn(name = "company_staff_id")
     private CompanyStaff companyStaff;
 
-    public UserConfirmation(User user, CompanyStaff companyStaff){
+    @ManyToOne()
+    @JoinColumn(name = "user_confirmation_type_id")
+    private UserConfirmationType userConfirmationType;
+
+    public UserConfirmation(User user, CompanyStaff companyStaff, UserConfirmationType userConfirmationType, boolean isConfirmed) {
         this.setUser(user);
         this.setCompanyStaff(companyStaff);
+        this.setUserConfirmationType(userConfirmationType);
+        this.setConfirmed(isConfirmed);
     }
 
 }
