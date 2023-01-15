@@ -3,6 +3,7 @@ package com.ozgurbaybas.Controllers;
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Core.Utilities.Result.Result;
 import com.ozgurbaybas.Models.FavoriteJobPosting;
+import com.ozgurbaybas.Models.JobPosting;
 import com.ozgurbaybas.Services.FavoriteJobPostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,9 +47,9 @@ public class FavoriteJobPostingsController {
         return favoriteJobPostingService.getAllByCandidateId(candidateId);
     }
 
-    @GetMapping("/getAllByCandidateIdSortedByDateOfAddToFavorites")
-    public DataResult<List<FavoriteJobPosting>> getAllByCandidateIdSortedByDateOfAddToFavorites(@RequestParam int candidateId) {
-        return favoriteJobPostingService.getAllByCandidateIdSortedByDateOfAddToFavorites(candidateId);
+    @GetMapping("/getAllActiveJobPostingsByCandidateIdSortedByDateOfAddToFavorites")
+    public DataResult<List<JobPosting>> getAllActiveJobPostingsByCandidateIdSortedByDateOfAddToFavorites(@RequestParam int candidateId) {
+        return favoriteJobPostingService.getAllActiveJobPostingsByCandidateIdSortedByDateOfAddToFavorites(candidateId);
     }
 
 }

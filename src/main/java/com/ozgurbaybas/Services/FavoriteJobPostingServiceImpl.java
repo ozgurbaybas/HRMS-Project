@@ -1,16 +1,15 @@
 package com.ozgurbaybas.Services;
 
-import com.ozgurbaybas.Core.Utilities.Result.DataResult;
-import com.ozgurbaybas.Core.Utilities.Result.Result;
-import com.ozgurbaybas.Core.Utilities.Result.SuccessDataResult;
-import com.ozgurbaybas.Core.Utilities.Result.SuccessResult;
+import com.ozgurbaybas.Core.Utilities.Result.*;
 import com.ozgurbaybas.Models.FavoriteJobPosting;
+import com.ozgurbaybas.Models.JobPosting;
 import com.ozgurbaybas.Repository.FavoriteJobPostingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,9 +24,14 @@ public class FavoriteJobPostingServiceImpl implements FavoriteJobPostingService 
 
     @Override
     public Result add(FavoriteJobPosting favoriteJobPosting) {
-        favoriteJobPosting.setDateOfAddToFavorites(LocalDateTime.now());
-        favoriteJobPostingRepository.save(favoriteJobPosting);
-        return new SuccessResult();
+        if (getByCandidateIdAndJobPostingId(favoriteJobPosting.getCandidate().getId(), favoriteJobPosting.getJobPosting().getId()).getData() == null) {
+            favoriteJobPosting.setDateOfAddToFavorites(LocalDateTime.now());
+            favoriteJobPostingRepository.save(favoriteJobPosting);
+
+            return new SuccessResult("The ad has been added to favourites.");
+        }
+
+        return new ErrorResult();
     }
 
     @Override
@@ -39,7 +43,7 @@ public class FavoriteJobPostingServiceImpl implements FavoriteJobPostingService 
     @Override
     public Result delete(int id) {
         favoriteJobPostingRepository.deleteById(id);
-        return new SuccessResult();
+        return new SuccessResult("Ad removed from favourites.");
     }
 
     @Override
@@ -57,10 +61,26 @@ public class FavoriteJobPostingServiceImpl implements FavoriteJobPostingService 
         return new SuccessDataResult<List<FavoriteJobPosting>>(favoriteJobPostingRepository.getByCandidate_Id(candidateId));
     }
 
-    @Override
-    public DataResult<List<FavoriteJobPosting>> getAllByCandidateIdSortedByDateOfAddToFavorites(int candidateId) {
+    public DataResult<List<JobPosting>> getAllActiveJobPostingsByCandidateIdSortedByDateOfAddToFavorites(int candidateId) {
+
+        List<JobPosting> jobPostings = new ArrayList<JobPosting>();
+
         Sort sort = Sort.by(Sort.Direction.DESC, "dateOfAddToFavorites");
-        return new SuccessDataResult<List<FavoriteJobPosting>>(favoriteJobPostingRepository.getByCandidate_Id(candidateId, sort));
+
+        for (FavoriteJobPosting favoriteJobPosting : favoriteJobPostingRepository.getByCandidate_Id(candidateId, sort)) {
+            if (favoriteJobPosting.getJobPosting().isActive()) {
+                jobPostings.add(favoriteJobPosting.getJobPosting());
+            } else {
+                delete(favoriteJobPosting.getId());
+            }
+        }
+
+        return new SuccessDataResult<List<JobPosting>>(jobPostings);
+    }
+
+    @Override
+    public DataResult<FavoriteJobPosting> getByCandidateIdAndJobPostingId(int candidateId, int jobPostingId) {
+        return new SuccessDataResult<FavoriteJobPosting>(favoriteJobPostingRepository.getByCandidate_IdAndJobPosting_Id(candidateId, jobPostingId));
     }
 
 }

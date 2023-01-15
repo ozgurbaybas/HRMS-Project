@@ -6,6 +6,7 @@ import com.ozgurbaybas.Models.JobPosting;
 import com.ozgurbaybas.Models.JobPostingConfirmation;
 import com.ozgurbaybas.Models.JobPostingConfirmationType;
 import com.ozgurbaybas.Repository.JobPostingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class JobPostingServiceImpl implements JobPostingService {
     private JobPostingConfirmationTypeService jobPostingConfirmationTypeService;
     private CompanyStaffService companyStaffService;
 
+    @Autowired
     public JobPostingServiceImpl(JobPostingRepository jobPostingRepository, JobPostingConfirmationService jobPostingConfirmationService, JobPostingConfirmationTypeService jobPostingConfirmationTypeService, CompanyStaffService companyStaffService) {
         this.jobPostingRepository = jobPostingRepository;
         this.jobPostingConfirmationService = jobPostingConfirmationService;
@@ -141,16 +143,18 @@ public class JobPostingServiceImpl implements JobPostingService {
 
         Stream<JobPosting> stream = getAllActiveOnesSortedByPostingDate().getData().stream();
 
-        Predicate<JobPosting> cityCondition = null;
-        Predicate<JobPosting> jobTitleCondition = null ;
-        Predicate<JobPosting> workingTimeCondition = null ;
-        Predicate<JobPosting> workingTypeCondition = null;
-
-        cityCondition = cityId != 0 ? (jobPosting -> jobPosting.getCity().getId() == cityId) : (jobPosting -> jobPosting.getCity().getId() > 0);
-        jobTitleCondition = jobTitleId != 0 ? (jobPosting -> jobPosting.getJobTitle().getId() == jobTitleId) : (jobPosting -> jobPosting.getJobTitle().getId() > 0);
-        workingTimeCondition = workingTimeId != 0 ? (jobPosting -> jobPosting.getWorkingTime().getId() == workingTimeId) : (jobPosting -> jobPosting.getWorkingTime().getId() > 0);
-        workingTypeCondition = workingTypeId != 0 ? (jobPosting -> jobPosting.getWorkingType().getId() == workingTypeId) : (jobPosting -> jobPosting.getWorkingType().getId() > 0);
-
+        Predicate<JobPosting> cityCondition = cityId != 0
+                ? (jobPosting -> jobPosting.getCity().getId() == cityId)
+                : (jobPosting -> jobPosting.getCity().getId() > 0);
+        Predicate<JobPosting> jobTitleCondition = jobTitleId != 0
+                ? (jobPosting -> jobPosting.getJobTitle().getId() == jobTitleId)
+                : (jobPosting -> jobPosting.getJobTitle().getId() > 0);
+        Predicate<JobPosting> workingTimeCondition = workingTimeId != 0
+                ? (jobPosting -> jobPosting.getWorkingTime().getId() == workingTimeId)
+                : (jobPosting -> jobPosting.getWorkingTime().getId() > 0);
+        Predicate<JobPosting> workingTypeCondition = workingTypeId != 0
+                ? (jobPosting -> jobPosting.getWorkingType().getId() == workingTypeId)
+                : (jobPosting -> jobPosting.getWorkingType().getId() > 0);
         stream.filter(workingTimeCondition).filter(workingTypeCondition).filter(cityCondition).filter(jobTitleCondition).forEach(jobPosting -> result.add(jobPosting));
 
         return result;
