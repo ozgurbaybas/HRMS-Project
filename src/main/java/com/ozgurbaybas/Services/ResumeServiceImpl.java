@@ -12,6 +12,7 @@ import com.ozgurbaybas.Core.Utilities.Result.SuccessDataResult;
 import com.ozgurbaybas.Core.Utilities.Result.SuccessResult;
 import com.ozgurbaybas.Repository.ResumeRepository;
 import com.ozgurbaybas.Models.Resume;
+import org.springframework.data.domain.Sort;
 import com.ozgurbaybas.Models.DTO.ResumeWithAllRelatedEntitiesDto;
 
 @Service
@@ -59,7 +60,9 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Override
     public DataResult<List<Resume>> getAll() {
-        return new SuccessDataResult<List<Resume>>(resumeRepository.findAll());
+        Sort sort = Sort.by(Sort.Direction.DESC, "creationDate");
+
+        return new SuccessDataResult<List<Resume>>(resumeRepository.findAll(sort));
     }
 
     @Override
