@@ -2,10 +2,10 @@ package com.ozgurbaybas.Services;
 
 import com.ozgurbaybas.Core.Utilities.Result.*;
 import com.ozgurbaybas.Models.*;
+import org.springframework.data.domain.Sort;
 import com.ozgurbaybas.Repository.EmployerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,9 +33,14 @@ public class EmployerServiceImpl implements EmployerService {
         this.companyStaffService = companyStaffService;
         this.updatedEmployerService = updatedEmployerService;
     }
+
     @Override
     public Result add(Employer employer) {
-        validateEmployer(employer);
+
+        if (validateEmployer(employer) != null) {
+            return validateEmployer(employer);
+        }
+
         employerRepository.save(employer);
         return userActivationService.add(new UserActivation(employer));
     }
@@ -62,7 +67,10 @@ public class EmployerServiceImpl implements EmployerService {
                 ? e.getPhoneNumber()
                 : employer.getPhoneNumber());
 
-        validateEmployer(employer);
+        if (validateEmployer(employer) != null) {
+            return validateEmployer(employer);
+        }
+
         if (updatedEmployer == null) {
             updatedEmployer = new UpdatedEmployer(0, employer.getEmail(), employer.getPassword(), employer.getCompanyName(), employer.getWebAddress(), employer.getPhoneNumber(), employer);
         } else {
@@ -72,15 +80,18 @@ public class EmployerServiceImpl implements EmployerService {
             updatedEmployer.setWebAddress(employer.getWebAddress());
             updatedEmployer.setPhoneNumber(employer.getPhoneNumber());
         }
+
         updatedEmployerService.add(updatedEmployer);
         return new SuccessResult("The employer update is in the approval phase.");
     }
 
     @Override
     public Result delete(int id) {
+
         employerRepository.deleteById(id);
         return new SuccessResult("Employer deleted.");
     }
+
     @Override
     public DataResult<List<Employer>> getAll() {
         return new SuccessDataResult<List<Employer>>(employerRepository.findAll());
@@ -93,10 +104,13 @@ public class EmployerServiceImpl implements EmployerService {
 
     @Override
     public Result activate(String code) {
+
         UserActivation userActivation = userActivationService.getByCode(code).getData();
+
         if (userActivation == null) {
             return new ErrorResult("You entered an invalid code.");
         }
+
         userActivation.setActivated(true);
         userActivation.setIsActivatedDate(LocalDate.now());
 
@@ -106,15 +120,18 @@ public class EmployerServiceImpl implements EmployerService {
 
     @Override
     public Result confirm(int employerId, int companyStaffId, int userConfirmationTypeId, boolean isConfirmed) {
+
         Employer employer = getById(employerId).getData();
         CompanyStaff companyStaff = companyStaffService.getById(companyStaffId).getData();
         UserConfirmationType userConfirmationType = userConfirmationTypeService.getById(userConfirmationTypeId).getData();
         UpdatedEmployer updatedEmployer = updatedEmployerService.getByEmployerId(employerId).getData();
+
         if (!isConfirmed && userConfirmationTypeId == 1) {
             userActivationService.delete(userActivationService.getByUserId(employer.getId()).getData().getId());
             delete(employer.getId());
             return new ErrorResult("Employer account disapproved.");
         }
+
         if (isConfirmed && userConfirmationTypeId == 1) {
             userConfirmationService.add(new UserConfirmation(employer, companyStaff, userConfirmationType, isConfirmed));
             return new SuccessResult("Employer account confirmed.");
@@ -131,6 +148,7 @@ public class EmployerServiceImpl implements EmployerService {
         employer.setCompanyName(updatedEmployer.getCompanyName());
         employer.setWebAddress(updatedEmployer.getWebAddress());
         employer.setPhoneNumber(updatedEmployer.getPhoneNumber());
+
         employerRepository.save(employer);
         updatedEmployerService.delete(updatedEmployer.getId());
         userConfirmationService.add(new UserConfirmation(employer, companyStaff, userConfirmationType, isConfirmed));
@@ -148,6 +166,7 @@ public class EmployerServiceImpl implements EmployerService {
                 result.add(employer);
             }
         }
+
         return new SuccessDataResult<List<Employer>>(result);
     }
 
@@ -194,23 +213,31 @@ public class EmployerServiceImpl implements EmployerService {
     private boolean checkIfEmailExists(String email) {
 
         boolean result = false;
+
         if (userService.getByEmail(email).getData() == null) {
             result = true;
         }
+
         return result;
     }
+
     private boolean checkIfDomainsMatch(String webAddress, String email) {
+
         String[] splitEmailArray = email.split("@");
+
         return webAddress.contains(splitEmailArray[1]);
     }
+
     private Result validateEmployer(Employer employer) {
 
         if (employer.getEmail() == null || employer.getPassword() == null || employer.getCompanyName() == null || employer.getWebAddress() == null || employer.getPhoneNumber() == null ) {
             return new ErrorResult("Please fill in the blank fields.");
         }
+
         if (!checkIfEmailExists(employer.getEmail())) {
             return new ErrorResult("The e-mail address entered belongs to another account.");
         }
+
         if (!checkIfDomainsMatch(employer.getWebAddress(), employer.getEmail())) {
             return new ErrorResult("The web address and the e-mail must have the same domain name.");
         }

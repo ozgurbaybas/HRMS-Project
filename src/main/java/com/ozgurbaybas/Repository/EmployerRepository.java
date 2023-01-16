@@ -12,5 +12,5 @@ public interface EmployerRepository extends JpaRepository<Employer, Integer> {
     List<Employer> getByUserActivation_IsActivated(boolean isActivated);
     List<Employer> getByUserConfirmations_IsConfirmedAndUserConfirmations_UserConfirmationType_Id(boolean isConfirmed, int userConfirmationTypeId);
     List<Employer> getByUserConfirmations_IsConfirmedAndUserConfirmations_UserConfirmationType_Id(boolean isConfirmed, int userConfirmationTypeId, Sort sort);
-    LocalDate now();
+
 }

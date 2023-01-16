@@ -1,6 +1,6 @@
 package com.ozgurbaybas.Controllers;
 
-import com.ozgurbaybas.Models.User;
+import com.ozgurbaybas.Core.Entities.User;
 import com.ozgurbaybas.Core.Utilities.Result.DataResult;
 import com.ozgurbaybas.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

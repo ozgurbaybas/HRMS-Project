@@ -1,6 +1,7 @@
 package com.ozgurbaybas.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ozgurbaybas.Core.Entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
