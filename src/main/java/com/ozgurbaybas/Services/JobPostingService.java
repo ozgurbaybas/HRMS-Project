@@ -10,7 +10,7 @@ import java.util.List;
 public interface JobPostingService extends BaseEntityService<JobPosting> {
 
     Result confirm(int employerId, int companyStaffId, int jobPostingConfirmationTypeId, boolean isConfirmed);
-    DataResult<List<JobPosting>> getAllActiveOnes();
+    DataResult<List<JobPosting>> getAllByIsActive(boolean isActive);
     DataResult<List<JobPosting>> getAllActiveOnesByPage(int pageNo, int pageSize);
     DataResult<List<JobPosting>> getAllActiveOnesSortedByPostingDate();
     DataResult<List<JobPosting>> getAllActiveOnesByPageSortedByPostingDate(int pageNo, int pageSize);
@@ -19,6 +19,7 @@ public interface JobPostingService extends BaseEntityService<JobPosting> {
     DataResult<List<JobPosting>> getAllActiveOnesFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType(int cityId, int jobTitleId, int workingTimeId, int workingTypeId);
     DataResult<List<JobPosting>> getAllActiveOnesByPageFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType(int cityId, int jobTitleId, int workingTimeId, int workingTypeId, int pageNo, int pageSize);
     Result makeActiveOrPassive(int id, boolean isActive);
+    DataResult<List<JobPosting>> getAllOnesThatWaitingForPostingConfirmation();
 
 }
 
