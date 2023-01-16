@@ -36,4 +36,13 @@ public class Employer extends User {
     @OneToMany(mappedBy = "user")
     private List<UserConfirmation> userConfirmations;
 
+    public Employer (int id, String email, String password, String companyName, String webAddress, String phoneNumber) {
+        super.setId(id);
+        super.setEmail(email);
+        super.setPassword(password);
+        this.setCompanyName(companyName);
+        this.setWebAddress(webAddress);
+        this.setPhoneNumber(phoneNumber);
+    }
+
 }

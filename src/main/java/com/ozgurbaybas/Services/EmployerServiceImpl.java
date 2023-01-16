@@ -1,17 +1,19 @@
 package com.ozgurbaybas.Services;
 
-
 import com.ozgurbaybas.Core.Utilities.Result.*;
 import com.ozgurbaybas.Models.*;
 import com.ozgurbaybas.Repository.EmployerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class EmployerServiceImpl implements EmployerService {
+
     private EmployerRepository employerRepository;
     private UserService userService;
     private UserActivationService userActivationService;
@@ -33,16 +35,14 @@ public class EmployerServiceImpl implements EmployerService {
     }
     @Override
     public Result add(Employer employer) {
-
         validateEmployer(employer);
-
         employerRepository.save(employer);
         return userActivationService.add(new UserActivation(employer));
     }
+
     @Override
     public Result update(Employer employer) {
         validateEmployer(employer);
-
         Employer employerInConfirmationProcess = getById(employer.getId()).getData();
         UpdatedEmployer updatedEmployer = updatedEmployerService.getByEmployerId(employer.getId()).getData();
 
@@ -61,59 +61,58 @@ public class EmployerServiceImpl implements EmployerService {
             updatedEmployer.setWebAddress(webAddress);
             updatedEmployer.setPhoneNumber(phoneNumber);
         }
-
         updatedEmployerService.add(updatedEmployer);
-        return new SuccessResult("İşveren güncellemesi onay aşamasındadır.");
+        return new SuccessResult("The employer update is in the approval phase.");
     }
+
     @Override
     public Result delete(int id) {
         employerRepository.deleteById(id);
-        return new SuccessResult("İşveren silindi.");
+        return new SuccessResult("Employer deleted.");
     }
     @Override
     public DataResult<List<Employer>> getAll() {
         return new SuccessDataResult<List<Employer>>(employerRepository.findAll());
     }
+
     @Override
     public DataResult<Employer> getById(int id) {
         return new SuccessDataResult<Employer>(employerRepository.getById(id));
     }
+
     @Override
     public Result activate(String code) {
         UserActivation userActivation = userActivationService.getByCode(code).getData();
         if (userActivation == null) {
-            return new ErrorResult("Geçersiz bir kod girdiniz.");
+            return new ErrorResult("You entered an invalid code.");
         }
-
         userActivation.setActivated(true);
-        userActivation.setIsActivatedDate(employerRepository.now());
+        userActivation.setIsActivatedDate(LocalDate.now());
 
         userActivationService.update(userActivation);
-        return new SuccessResult("Üyeliğiniz onay aşamasındadır.");
+        return new SuccessResult("Your membership is in the approval phase.");
     }
 
     @Override
     public Result confirm(int employerId, int companyStaffId, int userConfirmationTypeId, boolean isConfirmed) {
-
         Employer employer = getById(employerId).getData();
         CompanyStaff companyStaff = companyStaffService.getById(companyStaffId).getData();
         UserConfirmationType userConfirmationType = userConfirmationTypeService.getById(userConfirmationTypeId).getData();
         UpdatedEmployer updatedEmployer = updatedEmployerService.getByEmployerId(employerId).getData();
-
         if (!isConfirmed && userConfirmationTypeId == 1) {
             userActivationService.delete(userActivationService.getByUserId(employer.getId()).getData().getId());
             delete(employer.getId());
-            return new ErrorResult("İşveren hesabı onaylanmadı.");
+            return new ErrorResult("Employer account disapproved.");
         }
-
         if (isConfirmed && userConfirmationTypeId == 1) {
             userConfirmationService.add(new UserConfirmation(employer, companyStaff, userConfirmationType, isConfirmed));
-            return new SuccessResult("İşveren hesabı onaylandı.");
+            return new SuccessResult("Employer account confirmed.");
         }
 
         if (!isConfirmed && userConfirmationTypeId == 2) {
             userConfirmationService.add(new UserConfirmation(employer, companyStaff, userConfirmationType, isConfirmed));
-            return new ErrorResult("İşveren güncellemesi onaylanmadı.");
+            updatedEmployerService.delete(updatedEmployer.getId());
+            return new ErrorResult("Employer update not approved.");
         }
 
         employer.setEmail(updatedEmployer.getEmail());
@@ -121,11 +120,37 @@ public class EmployerServiceImpl implements EmployerService {
         employer.setCompanyName(updatedEmployer.getCompanyName());
         employer.setWebAddress(updatedEmployer.getWebAddress());
         employer.setPhoneNumber(updatedEmployer.getPhoneNumber());
-
         employerRepository.save(employer);
         updatedEmployerService.delete(updatedEmployer.getId());
         userConfirmationService.add(new UserConfirmation(employer, companyStaff, userConfirmationType, isConfirmed));
-        return new SuccessResult("İşveren güncellemesi onaylandı.");
+        return new SuccessResult("Employer update approved.");
+    }
+
+    @Override
+    public DataResult<List<Employer>> getAllOnesThatWaitingForAccountConfirmation() {
+
+        List<Employer> result = new ArrayList<Employer>();
+        List<Employer> activatedEmployers = getAllByIsActivated(true).getData();
+
+        for (Employer employer : activatedEmployers) {
+            if (userConfirmationService.getAllByUserId(employer.getId()).getData().size() == 0) {
+                result.add(employer);
+            }
+        }
+        return new SuccessDataResult<List<Employer>>(result);
+    }
+
+    @Override
+    public DataResult<List<Employer>> getAllOnesThatWaitingForUpdateConfirmation() {
+
+        List<Employer> result = new ArrayList<Employer>();
+        List<UpdatedEmployer> updatedEmployers = updatedEmployerService.getAll().getData();
+
+        for (UpdatedEmployer updatedEmployer : updatedEmployers) {
+            result.add(new Employer(updatedEmployer.getEmployer().getId() ,updatedEmployer.getEmail(), updatedEmployer.getPassword() ,updatedEmployer.getCompanyName(), updatedEmployer.getWebAddress(), updatedEmployer.getPhoneNumber()));
+        }
+
+        return new SuccessDataResult<List<Employer>>(result);
     }
 
     @Override
@@ -138,7 +163,25 @@ public class EmployerServiceImpl implements EmployerService {
         return new SuccessDataResult<List<Employer>>(employerRepository.getByUserConfirmations_IsConfirmedAndUserConfirmations_UserConfirmationType_Id(isConfirmed, userConfirmationTypeId));
     }
 
+    @Override
+    public DataResult<List<Employer>> getAllByIsConfirmedAndUserConfirmationTypeIdSortedByCompanyName(boolean isConfirmed, int userConfirmationTypeId) {
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "companyName");
+
+        return new SuccessDataResult<List<Employer>>(employerRepository.getByUserConfirmations_IsConfirmedAndUserConfirmations_UserConfirmationType_Id(isConfirmed, userConfirmationTypeId, sort));
+    }
+
+    @Override
+    public DataResult<Employer> getOneThatWaitingForUpdateConfirmationById(int id) {
+
+        UpdatedEmployer updatedEmployer = updatedEmployerService.getByEmployerId(id).getData();
+        Employer result = new Employer(updatedEmployer.getEmployer().getId() ,updatedEmployer.getEmail(), updatedEmployer.getPassword() ,updatedEmployer.getCompanyName(), updatedEmployer.getWebAddress(), updatedEmployer.getPhoneNumber());
+
+        return new SuccessDataResult<Employer>(result);
+    }
+
     private boolean checkIfEmailExists(String email) {
+
         boolean result = false;
         if (userService.getByEmail(email).getData() == null) {
             result = true;
@@ -149,18 +192,16 @@ public class EmployerServiceImpl implements EmployerService {
         String[] splitEmailArray = email.split("@");
         return webAddress.contains(splitEmailArray[1]);
     }
-
     private Result validateEmployer(Employer employer) {
 
         if (employer.getEmail() == null || employer.getPassword() == null || employer.getCompanyName() == null || employer.getWebAddress() == null || employer.getPhoneNumber() == null ) {
             return null;
         }
-
         if (!checkIfEmailExists(employer.getEmail())) {
-            return new ErrorResult("Girilen e-posta adresi başka bir hesaba aittir.");
+            return new ErrorResult("The e-mail address entered belongs to another account.");
         }
         if (!checkIfDomainsMatch(employer.getWebAddress(), employer.getEmail())) {
-            return new ErrorResult("Web adresi ile e-posta aynı alan adına sahip olmalıdır.");
+            return new ErrorResult("The web address and the e-mail must have the same domain name.");
         }
 
         return null;
