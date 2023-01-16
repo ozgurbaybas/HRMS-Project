@@ -55,4 +55,9 @@ public class JobPostingConfirmationServiceImpl implements JobPostingConfirmation
         return new SuccessDataResult<JobPostingConfirmation>(jobPostingConfirmationRepository.getById(id));
     }
 
+    @Override
+    public DataResult<JobPostingConfirmation> getByJobPostingId(int jobPostingId) {
+        return new SuccessDataResult<JobPostingConfirmation>(jobPostingConfirmationRepository.getByJobPosting_Id(jobPostingId));
+    }
+
 }
