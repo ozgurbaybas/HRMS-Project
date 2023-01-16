@@ -9,6 +9,5 @@ import java.util.List;
 public interface ExperienceRepository extends JpaRepository<Experience, Integer> {
 
     List<Experience> getByResume_Id(int resumeId);
-    List<Experience> getByResume_Id(int resumeId, Sort sort);
-
+    List<Experience> getByResume_Id(int resumeId, org.springframework.data.domain.Sort sort);
 }

@@ -23,17 +23,17 @@ public class JobPostingConfirmationTypeServiceImpl implements JobPostingConfirma
 
     @Override
     public Result add(JobPostingConfirmationType entity) {
-        return new SuccessResult("İş ilanı onay tipi eklendi.");
+        return new SuccessResult("Job posting approval type added.");
     }
 
     @Override
     public Result update(JobPostingConfirmationType entity) {
-        return new SuccessResult("İş ilanı onay tipi güncellendi.");
+        return new SuccessResult("Job posting approval type has been updated.");
     }
 
     @Override
     public Result delete(int id) {
-        return new SuccessResult("İş ilanı onay tipi silindi.");
+        return new SuccessResult("Job posting approval type has been deleted.");
     }
 
     @Override
